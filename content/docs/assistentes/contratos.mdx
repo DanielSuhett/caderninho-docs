@@ -1,0 +1,50 @@
+---
+title: Confirmações e contratos MCP
+description: Entenda o efeito das ferramentas, valores monetários, paginação, revisões e repetição segura.
+---
+
+O [catálogo de ferramentas](/docs/assistentes/ferramentas) informa o efeito de cada chamada. Consultas e prévias leem; escritas alteram dados locais; `caderninho_sync` pede uma importação.
+
+## Confirmar uma escrita
+
+Toda escrita de planejamento exige o espaço explícito, `confirmed: true` e uma `idempotency_key` única para a solicitação. Obtenha a confirmação do proprietário antes de executar.
+
+Uma repetição com a mesma chave e os mesmos argumentos normalizados devolve o resultado durável anterior. Outra solicitação precisa de outra chave. Uma chave reutilizada para dados diferentes é recusada.
+
+Todas as escritas são locais. Nenhuma ferramenta paga faturas, envia Pix, contrata crédito ou altera um registro na instituição.
+
+## Separar origem e apresentação
+
+As quatro ferramentas `caderninho_*` preservam a visão bancária da origem. As ferramentas de planejamento usam a visão efetiva com edições e registros manuais.
+
+Pessoas, perfis, credenciais e autorizações são administrados no painel privado. A existência de uma ferramenta de conta ou espaço não cria permissões por titular. Um filtro de pessoa seleciona dados para a consulta, mas não limita o acesso de um assistente autorizado: ele pode consultar todos os titulares da instalação.
+
+## Dinheiro exato
+
+Campos como `amountMinor` e `totalMinor` são strings de unidades menores da moeda. Em BRL, `"10000"` representa R$ 100,00. Não converta valores grandes para ponto flutuante nem some moedas diferentes.
+
+`null` representa um valor desconhecido. Preserve contagem de desconhecidos e subtotais conhecidos. Um valor ausente não representa zero.
+
+## Paginação e cobertura
+
+Use o cursor com os mesmos filtros e a mesma revisão. Para totais, use uma ferramenta agregadora de toda a seleção. Uma página de transações não é o total do período.
+
+Em `RESTART_REQUIRED`, descarte o cursor e refaça a leitura. Não misture páginas de revisões diferentes. Escritas por seleção ou período recusam seleções acima do limite atômico de 500 registros.
+
+`partial`, `truncated`, cobertura, último sucesso e dia de referência explicam limites diferentes. `partial: false` não garante dados recentes nem todo o histórico disponibilizado pelo banco.
+
+## Receber os resultados
+
+O resultado canônico é publicado em `structuredContent`, com representação textual JSON para compatibilidade. As páginas individuais mostram o schema de saída quando ele existe no registro.
+
+Os exemplos da referência usam nomes e IDs fictícios e passam pelos schemas de entrada. Validar um exemplo não executa uma chamada nem comprova que um ID existe na sua instalação.
+
+## Tratar recusas
+
+| Código ou situação | Próxima ação |
+| --- | --- |
+| `NOT_FOUND` | Consulte novamente os IDs e o espaço selecionado |
+| `INVALID_FILTER` | Revise os campos apontados e preserve moeda e intervalo |
+| `RESTART_REQUIRED` | Atualize a leitura antes de repetir |
+| Rede incerta após escrita | Repita apenas a mesma operação com a mesma chave |
+| Cobertura parcial ou truncada | Informe o limite e restrinja ou complete a análise |

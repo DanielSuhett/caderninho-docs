@@ -1,0 +1,14 @@
+{
+  "title": "Análises e assinaturas",
+  "defaultOpen": false,
+  "pages": [
+    "index",
+    "analyze_categories",
+    "generate_chart",
+    "get_overview",
+    "get_spending_by_category",
+    "get_spending_comparison",
+    "get_spending_pace",
+    "get_subscriptions"
+  ]
+}

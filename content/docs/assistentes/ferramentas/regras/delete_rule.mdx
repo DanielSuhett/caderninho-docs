@@ -1,0 +1,96 @@
+---
+title: "delete_rule"
+description: "Excluir regra sem reverter classificações já aplicadas."
+---
+
+Regras de classificação · Excluir · Escrita local
+
+## Efeito da chamada
+
+Esta ferramenta altera dados locais da instalação. Confirme a ação e o espaço com o proprietário antes de enviar confirmed: true e uma chave de idempotência. Ela não altera registros nem executa pagamentos no banco.
+
+## Parâmetros
+
+| Campo | Obrigatório | Tipo | Uso |
+| --- | --- | --- | --- |
+| `confirmed` | Sim | true | Deve ser true somente depois da confirmação explícita do proprietário. |
+| `idempotency_key` | Sim | texto | Chave única para esta solicitação. Reutilize apenas para repetir exatamente a mesma operação. |
+| `spaceId` | Sim | texto | Espaço da instalação. Consulte get_spaces; o espaço inicial é personal. |
+| `id` | Sim | texto | ID do registro devolvido por get_rules. |
+
+Filtros compostos e limites estão no schema completo. Campos não listados são recusados.
+
+## Exemplo de chamada
+
+Substitua os IDs fictícios pelos da sua instalação, obtidos nas consultas indicadas nos parâmetros.
+
+```json
+
+{
+  "name": "delete_rule",
+  "arguments": {
+    "confirmed": true,
+    "idempotency_key": "docs:delete_rule:01",
+    "spaceId": "personal",
+    "id": "id-exemplo"
+  }
+}
+
+```
+
+## Interpretar o resultado
+
+Confira o resultado da chamada antes de dar a alteração como concluída. Se a rede falhar, repita somente os mesmos argumentos com a mesma chave. Atualize a leitura se a revisão estiver obsoleta antes de confirmar outra operação.
+
+O registro desta ferramenta não declara outputSchema. Consulte as regras de resposta no guia de contratos.
+
+## Contrato completo
+
+<details>
+
+<summary>Ver JSON Schema de entrada</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "confirmed": {
+      "type": "boolean",
+      "const": true
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "spaceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    }
+  },
+  "required": [
+    "confirmed",
+    "idempotency_key",
+    "spaceId",
+    "id"
+  ],
+  "additionalProperties": false
+}
+
+```
+
+
+
+</details>
+
+[Voltar para Regras de classificação](/docs/assistentes/ferramentas/regras) · [Confirmações e contratos](/docs/assistentes/contratos)

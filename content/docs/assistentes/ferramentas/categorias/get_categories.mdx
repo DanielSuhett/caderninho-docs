@@ -1,0 +1,93 @@
+---
+title: "get_categories"
+description: "Listar registros locais e importados, incluindo ocultos quando solicitado."
+---
+
+Categorias e etiquetas · Consultar · Consulta / prévia
+
+## Efeito da chamada
+
+Consulta ou simula sem gravar alterações financeiras nem iniciar uma importação.
+
+## Parâmetros
+
+| Campo | Obrigatório | Tipo | Uso |
+| --- | --- | --- | --- |
+| `personId` | Não | texto | Titular declarado. Obtenha seu ID em caderninho_status. |
+| `spaceId` | Não | texto | Espaço da instalação. Consulte get_spaces; o espaço inicial é personal. Padrão: "personal". |
+| `include_hidden` | Não | booleano | Inclui registros ocultos na listagem. Padrão: false. |
+| `groupId` | Não | texto ou null | ID de agrupador devolvido por get_category_groups no mesmo espaço; null remove o vínculo. |
+
+Filtros compostos e limites estão no schema completo. Campos não listados são recusados.
+
+## Exemplo de chamada
+
+Substitua os IDs fictícios pelos da sua instalação, obtidos nas consultas indicadas nos parâmetros.
+
+```json
+
+{
+  "name": "get_categories",
+  "arguments": {}
+}
+
+```
+
+## Interpretar o resultado
+
+Preserve moeda, valores desconhecidos, cobertura e datas de referência informados na resposta. Uma leitura sem registros não comprova ausência de movimentos no banco. Para totais, use agregações de toda a seleção.
+
+O registro desta ferramenta não declara outputSchema. Consulte as regras de resposta no guia de contratos.
+
+## Contrato completo
+
+<details>
+
+<summary>Ver JSON Schema de entrada</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "personId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "spaceId": {
+      "default": "personal",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "include_hidden": {
+      "default": false,
+      "type": "boolean"
+    },
+    "groupId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}
+
+```
+
+
+
+</details>
+
+[Voltar para Categorias e etiquetas](/docs/assistentes/ferramentas/categorias) · [Confirmações e contratos](/docs/assistentes/contratos)

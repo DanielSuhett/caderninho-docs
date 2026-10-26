@@ -1,0 +1,175 @@
+---
+title: "get_transaction_purchases"
+description: "Compras e transações com parcelas de cartão agrupadas antes da paginação, como na lista do painel. Mantém valores de cada parcela, moeda, pendência, datas e identificação. Datas filtram a compra ou primeira parcela conhecida; nunca some a página para calcular totais."
+---
+
+Transações e compras · Consultar · Consulta / prévia
+
+## Efeito da chamada
+
+Consulta ou simula sem gravar alterações financeiras nem iniciar uma importação.
+
+## Parâmetros
+
+| Campo | Obrigatório | Tipo | Uso |
+| --- | --- | --- | --- |
+| `personId` | Não | texto | Titular declarado. Obtenha seu ID em caderninho_status. |
+| `spaceId` | Não | texto | Espaço da instalação. Consulte get_spaces; o espaço inicial é personal. Padrão: "personal". |
+| `accountId` | Não | texto | ID de conta devolvido por get_accounts. |
+| `categoryId` | Não | texto | ID de categoria devolvido por get_categories no mesmo espaço. |
+| `currency` | Não | "BRL" / "USD" / "EUR" / "GBP" / "ARS" / "AUD" / "BHD" / "CAD" / "CHF" / "CLP" / "JPY" / "KWD" | Moeda da operação. Valores de moedas diferentes permanecem separados. |
+| `direction` | Não | "DEBIT" / "CREDIT" | Direção DEBIT ou CREDIT. Ela não determina, sozinha, despesa ou receita. |
+| `from` | Não | texto | Primeiro dia incluído na seleção, em AAAA-MM-DD. |
+| `include_ignored` | Não | booleano | Inclui lançamentos marcados como ignorados na seleção. Padrão: false. |
+| `status` | Não | "PENDING" / "POSTED" | Estado do registro ou filtro. Use somente as opções aceitas por esta ferramenta. |
+| `text` | Não | texto | Texto literal de busca ou condição. Confira as regras de comparação da ferramenta. |
+| `to` | Não | texto | Último dia incluído na seleção, em AAAA-MM-DD. |
+| `uncategorized` | Não | booleano | Somente lançamentos sem categoria efetiva. |
+| `cursor` | Não | texto | Cursor recebido na página anterior. Preserve filtros e revisão. |
+| `future` | Não | booleano | Inclui o recorte de compras futuras conforme a seleção da consulta. Padrão: false. |
+| `limit` | Não | inteiro | Máximo de registros ou candidatos devolvidos. Confira paginação e cobertura na resposta. Padrão: 100. Máximo: 500. Mínimo: 1. |
+| `order` | Não | "date_desc" | Ordem da lista. date_desc é adequada para consultar movimentos recentes. Padrão: "date_desc". |
+
+Filtros compostos e limites estão no schema completo. Campos não listados são recusados.
+
+## Exemplo de chamada
+
+Substitua os IDs fictícios pelos da sua instalação, obtidos nas consultas indicadas nos parâmetros.
+
+```json
+
+{
+  "name": "get_transaction_purchases",
+  "arguments": {
+    "from": "2026-10-01",
+    "to": "2026-10-31",
+    "limit": 5
+  }
+}
+
+```
+
+## Interpretar o resultado
+
+Preserve moeda, valores desconhecidos, cobertura e datas de referência informados na resposta. Uma leitura sem registros não comprova ausência de movimentos no banco. Para totais, use agregações de toda a seleção.
+
+O registro desta ferramenta não declara outputSchema. Consulte as regras de resposta no guia de contratos.
+
+## Contrato completo
+
+<details>
+
+<summary>Ver JSON Schema de entrada</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "personId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "spaceId": {
+      "default": "personal",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "accountId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "categoryId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "currency": {
+      "type": "string",
+      "enum": [
+        "BRL",
+        "USD",
+        "EUR",
+        "GBP",
+        "ARS",
+        "AUD",
+        "BHD",
+        "CAD",
+        "CHF",
+        "CLP",
+        "JPY",
+        "KWD"
+      ]
+    },
+    "direction": {
+      "type": "string",
+      "enum": [
+        "DEBIT",
+        "CREDIT"
+      ]
+    },
+    "from": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+    },
+    "include_ignored": {
+      "default": false,
+      "type": "boolean"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "POSTED"
+      ]
+    },
+    "text": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "to": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+    },
+    "uncategorized": {
+      "description": "Somente lançamentos sem categoria efetiva.",
+      "type": "boolean"
+    },
+    "cursor": {
+      "type": "string",
+      "maxLength": 4096
+    },
+    "future": {
+      "default": false,
+      "type": "boolean"
+    },
+    "limit": {
+      "default": 100,
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 500
+    },
+    "order": {
+      "default": "date_desc",
+      "type": "string",
+      "const": "date_desc"
+    }
+  },
+  "additionalProperties": false
+}
+
+```
+
+
+
+</details>
+
+[Voltar para Transações e compras](/docs/assistentes/ferramentas/transacoes) · [Confirmações e contratos](/docs/assistentes/contratos)

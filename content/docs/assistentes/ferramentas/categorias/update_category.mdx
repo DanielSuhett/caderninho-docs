@@ -1,0 +1,143 @@
+---
+title: "update_category"
+description: "Configurar ícone, cor e grupo de qualquer categoria. Nomes de categorias fixas são protegidos."
+---
+
+Categorias e etiquetas · Editar ou configurar · Escrita local
+
+## Efeito da chamada
+
+Esta ferramenta altera dados locais da instalação. Confirme a ação e o espaço com o proprietário antes de enviar confirmed: true e uma chave de idempotência. Ela não altera registros nem executa pagamentos no banco.
+
+## Parâmetros
+
+| Campo | Obrigatório | Tipo | Uso |
+| --- | --- | --- | --- |
+| `confirmed` | Sim | true | Deve ser true somente depois da confirmação explícita do proprietário. |
+| `idempotency_key` | Sim | texto | Chave única para esta solicitação. Reutilize apenas para repetir exatamente a mesma operação. |
+| `spaceId` | Sim | texto | Espaço da instalação. Consulte get_spaces; o espaço inicial é personal. |
+| `color` | Não | texto | Cor de apresentação no formato hexadecimal aceito pelo catálogo. |
+| `groupId` | Não | texto ou null | ID de agrupador devolvido por get_category_groups no mesmo espaço; null remove o vínculo. |
+| `icon` | Não | "activity" / "book" / "briefcase" / "car" / "gift" / "heart" / "home" / "money" / "shopping" / "star" / "transfer" / "utensils" | Identificador de ícone aceito pelo catálogo do produto. |
+| `hidden` | Não | booleano | Oculta ou restaura a apresentação do registro, preservando seu histórico. |
+| `id` | Sim | texto | ID do registro devolvido por get_categories. |
+| `name` | Não | texto | Nome de exibição do registro. |
+
+Filtros compostos e limites estão no schema completo. Campos não listados são recusados.
+
+## Exemplo de chamada
+
+Substitua os IDs fictícios pelos da sua instalação, obtidos nas consultas indicadas nos parâmetros.
+
+```json
+
+{
+  "name": "update_category",
+  "arguments": {
+    "confirmed": true,
+    "idempotency_key": "docs:update_category:01",
+    "spaceId": "personal",
+    "id": "id-exemplo",
+    "color": "#2563eb"
+  }
+}
+
+```
+
+## Interpretar o resultado
+
+Confira o resultado da chamada antes de dar a alteração como concluída. Se a rede falhar, repita somente os mesmos argumentos com a mesma chave. Atualize a leitura se a revisão estiver obsoleta antes de confirmar outra operação.
+
+O registro desta ferramenta não declara outputSchema. Consulte as regras de resposta no guia de contratos.
+
+## Contrato completo
+
+<details>
+
+<summary>Ver JSON Schema de entrada</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "confirmed": {
+      "type": "boolean",
+      "const": true
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "spaceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "color": {
+      "type": "string",
+      "pattern": "^#[0-9a-fA-F]{6}$"
+    },
+    "groupId": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "icon": {
+      "type": "string",
+      "enum": [
+        "activity",
+        "book",
+        "briefcase",
+        "car",
+        "gift",
+        "heart",
+        "home",
+        "money",
+        "shopping",
+        "star",
+        "transfer",
+        "utensils"
+      ]
+    },
+    "hidden": {
+      "type": "boolean"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    }
+  },
+  "required": [
+    "confirmed",
+    "idempotency_key",
+    "spaceId",
+    "id"
+  ],
+  "additionalProperties": false
+}
+
+```
+
+
+
+</details>
+
+[Voltar para Categorias e etiquetas](/docs/assistentes/ferramentas/categorias) · [Confirmações e contratos](/docs/assistentes/contratos)

@@ -1,0 +1,44 @@
+---
+title: Resolver problemas com bancos
+description: Banco ausente, titular incorreto, autorização expirada ou transações incompletas.
+---
+
+Comece pelo banco afetado em Pessoas e consulte seu histórico. Confira o estado no Meu Pluggy antes de alterar a conexão no Caderninho.
+
+## O banco não aparece na autorização
+
+Confirme que ele foi conectado no Meu Pluggy do titular escolhido. Confira o conector MeuPluggy e a seleção personalizada de conectores no Dashboard. Um banco adicionado depois precisa da própria autorização.
+
+## A autorização abriu com outra pessoa
+
+Cancele. Confira a sessão aberta no provedor e entre com o titular desejado antes de repetir. O nome cadastrado no Caderninho e o Client ID não verificam automaticamente quem fez login no Meu Pluggy.
+
+## A conexão pede novo acesso
+
+Em Pessoas, abra o ícone Ajustes de pessoas e credenciais. Localize o titular, expanda o banco afetado e escolha Reautorizar banco. O titular correto precisa entrar no fluxo Meu Pluggy. Isso renova uma autorização; não é o mesmo que reativar um perfil pausado nem desconectar a origem no Meu Pluggy. Consulte [Autorizações e sessões](/docs/bancos/autorizacoes) para distinguir expiração do banco e da aplicação.
+
+O provedor pode devolver outro identificador depois da autorização. Confira se surgiu uma nova conexão antes de interpretar a ausência de dados. As páginas já publicadas de uma importação interrompida permanecem no Caderninho; não presumimos que o provedor reutilize a mesma conexão nem que um histórico novo seja automaticamente unido ao anterior.
+
+## Faltam transações
+
+Confira o último sucesso completo, o período, o titular, a conta e o estado da coleta. Uma importação parcial ou uma janela curta da instituição podem deixar movimentos de fora. Um resultado vazio para hoje não prova que não houve movimento depois da última coleta; confira a origem antes de interpretar ausência como zero.
+
+## O saldo não corresponde ao mês
+
+O saldo exibido é a última observação recebida da conta. O filtro de período recorta os movimentos; ele não reconstrói saldos históricos do banco.
+
+## Há movimentos duplicados
+
+Confira se a mesma conta foi conectada em mais de uma aplicação ou perfil. IDs diferentes são origens distintas. Antes de excluir algo, entenda os vínculos e os totais de cada seleção.
+
+## O segredo Pluggy foi perdido ou mudou
+
+Atualize as credenciais pelo painel com o Client ID original. Trocar a aplicação não é uma rotação de segredo; o Caderninho protege a identidade da origem. Consulte [Credenciais e backup](/docs/manutencao/backup).
+
+## O pedido continua em espera
+
+Confira a próxima elegibilidade e a existência de uma execução ativa. Não exclua histórico nem altere o banco para contornar a janela. Para investigação técnica, use a [referência de observabilidade](/docs/referencia/observability).
+
+## Pedir ajuda
+
+Peça ao administrador da instalação ou a uma pessoa de confiança para olhar junto o nome do banco, o estado, a data do último sucesso e a mensagem do histórico. Não envie senhas, chave de acesso, Client Secret ou extratos. Se a outra pessoa não administra a instalação, peça que o administrador faça as alterações no painel.

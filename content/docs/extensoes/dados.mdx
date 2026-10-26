@@ -1,0 +1,34 @@
+---
+title: Estender os dados financeiros
+description: Cobertura atual e pontos de extensão para contas, transações, patrimônio e identificação.
+---
+
+Os dados efetivamente disponíveis dependem da instituição, do conector e da aplicação. Confira a [referência de dados financeiros da Pluggy](https://docs.pluggy.ai/pt/reference) antes de propor um campo novo.
+
+## Contas e transações
+
+O Caderninho importa contas BANK/CREDIT e suas transações, preservando moeda, direção, estado, descrição e identificação reconhecida. As consultas da origem e as edições locais têm contratos separados.
+
+Extratos dedicados e consulta de saldo em tempo real seriam integrações próprias. O saldo atual do produto é a última observação importada; a existência de um endpoint no provedor não muda sua atualização automaticamente.
+
+## Cartões e faturas
+
+O produto usa faturas, dados de cartão, limites e parcelas que a origem disponibiliza. A identificação permite agrupar parcelas quando há evidência suficiente, mantendo as incertezas.
+
+Qualquer extensão precisa preservar a separação entre compra, parcela, fatura e pagamento. Um campo novo não deve duplicar despesas já observadas.
+
+## Investimentos e empréstimos
+
+Posições, valores e detalhes de investimentos e empréstimos já são importados. O produto também admite registros manuais de planejamento.
+
+Movimentações de investimentos, novas classes e informações adicionais podem exigir novos contratos. A posição atual não é uma série histórica de rentabilidade.
+
+## Identidade, SCR e estabelecimentos
+
+Há informações de identificação reconhecidas em contas e transações, conforme a origem. Isso não equivale a uma integração completa dos produtos dedicados de identidade, SCR ou consulta de estabelecimentos.
+
+Uma extensão nesses produtos exige definir finalidade, campos necessários, origem e vínculo com o titular. O nome cadastrado em Pessoas permanece uma atribuição declarada; ele não comprova identidade bancária.
+
+## Critério para ampliar
+
+Preserve o registro da origem, acrescente contratos explícitos e mostre desconhecidos. Uma nova coleta precisa manter reexecução, histórico cumulativo, precisão por moeda e o isolamento entre aplicações Pluggy.

@@ -1,0 +1,147 @@
+---
+title: "edit_transaction"
+description: "Editar projeção local sem sobrescrever registro bancário."
+---
+
+Transações e compras · Editar ou configurar · Escrita local
+
+## Efeito da chamada
+
+Esta ferramenta altera dados locais da instalação. Confirme a ação e o espaço com o proprietário antes de enviar confirmed: true e uma chave de idempotência. Ela não altera registros nem executa pagamentos no banco.
+
+## Parâmetros
+
+| Campo | Obrigatório | Tipo | Uso |
+| --- | --- | --- | --- |
+| `confirmed` | Sim | true | Deve ser true somente depois da confirmação explícita do proprietário. |
+| `idempotency_key` | Sim | texto | Chave única para esta solicitação. Reutilize apenas para repetir exatamente a mesma operação. |
+| `spaceId` | Sim | texto | Espaço da instalação. Consulte get_spaces; o espaço inicial é personal. |
+| `id` | Sim | texto | ID do registro devolvido por get_transactions. |
+| `amountMinor` | Não | texto | Valor exato em unidades menores, como string. Em BRL, "10000" significa R$ 100,00. |
+| `category` | Não | texto ou null | ID da categoria local; null remove a atribuição quando permitido. |
+| `date` | Não | texto | Dia financeiro do registro, em AAAA-MM-DD. |
+| `description` | Não | texto | Descrição local do lançamento, quando a operação permite editá-la. |
+| `direction` | Não | "DEBIT" / "CREDIT" | Direção DEBIT ou CREDIT. Ela não determina, sozinha, despesa ou receita. |
+| `ignored` | Não | booleano | Define a exclusão do lançamento das análises que respeitam ignorados. |
+| `status` | Não | "PENDING" / "POSTED" | Estado do registro ou filtro. Use somente as opções aceitas por esta ferramenta. |
+
+Filtros compostos e limites estão no schema completo. Campos não listados são recusados.
+
+## Exemplo de chamada
+
+Substitua os IDs fictícios pelos da sua instalação, obtidos nas consultas indicadas nos parâmetros.
+
+```json
+
+{
+  "name": "edit_transaction",
+  "arguments": {
+    "confirmed": true,
+    "idempotency_key": "docs:edit_transaction:01",
+    "spaceId": "personal",
+    "id": "id-exemplo",
+    "category": "categoria-alimentacao-exemplo"
+  }
+}
+
+```
+
+## Interpretar o resultado
+
+Confira o resultado da chamada antes de dar a alteração como concluída. Se a rede falhar, repita somente os mesmos argumentos com a mesma chave. Atualize a leitura se a revisão estiver obsoleta antes de confirmar outra operação.
+
+O registro desta ferramenta não declara outputSchema. Consulte as regras de resposta no guia de contratos.
+
+## Contrato completo
+
+<details>
+
+<summary>Ver JSON Schema de entrada</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "confirmed": {
+      "type": "boolean",
+      "const": true
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "spaceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "amountMinor": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d{0,29})$"
+    },
+    "category": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+    "direction": {
+      "type": "string",
+      "enum": [
+        "DEBIT",
+        "CREDIT"
+      ]
+    },
+    "ignored": {
+      "type": "boolean"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "POSTED"
+      ]
+    }
+  },
+  "required": [
+    "confirmed",
+    "idempotency_key",
+    "spaceId",
+    "id"
+  ],
+  "additionalProperties": false
+}
+
+```
+
+
+
+</details>
+
+[Voltar para Transações e compras](/docs/assistentes/ferramentas/transacoes) · [Confirmações e contratos](/docs/assistentes/contratos)

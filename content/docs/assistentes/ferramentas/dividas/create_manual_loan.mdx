@@ -1,0 +1,160 @@
+---
+title: "create_manual_loan"
+description: "Cadastrar dívida manual sem efetuar contratação bancária."
+---
+
+Dívidas e conciliação · Criar · Escrita local
+
+## Efeito da chamada
+
+Esta ferramenta altera dados locais da instalação. Confirme a ação e o espaço com o proprietário antes de enviar confirmed: true e uma chave de idempotência. Ela não altera registros nem executa pagamentos no banco.
+
+## Parâmetros
+
+| Campo | Obrigatório | Tipo | Uso |
+| --- | --- | --- | --- |
+| `confirmed` | Sim | true | Deve ser true somente depois da confirmação explícita do proprietário. |
+| `idempotency_key` | Sim | texto | Chave única para esta solicitação. Reutilize apenas para repetir exatamente a mesma operação. |
+| `spaceId` | Sim | texto | Espaço da instalação. Consulte get_spaces; o espaço inicial é personal. |
+| `amountMinor` | Sim | texto | Valor exato em unidades menores, como string. Em BRL, "10000" significa R$ 100,00. |
+| `currency` | Sim | "BRL" / "USD" / "EUR" / "GBP" / "ARS" / "AUD" / "BHD" / "CAD" / "CHF" / "CLP" / "JPY" / "KWD" | Moeda da operação. Valores de moedas diferentes permanecem separados. |
+| `firstPaymentDate` | Sim | texto | Vencimento da primeira parcela do empréstimo manual. |
+| `installmentMinor` | Sim | texto | Valor da parcela manual em unidades menores da moeda. |
+| `name` | Sim | texto | Nome de exibição do registro. |
+| `paid` | Sim | inteiro | Quantidade de parcelas informadas como pagas no cadastro manual da dívida. Máximo: 600. Mínimo: 0. |
+| `personId` | Não | texto | Titular declarado. Obtenha seu ID em caderninho_status. |
+| `total` | Sim | inteiro | Quantidade total de parcelas do plano manual. Máximo: 600. Mínimo: 1. |
+
+Filtros compostos e limites estão no schema completo. Campos não listados são recusados.
+
+## Exemplo de chamada
+
+Substitua os IDs fictícios pelos da sua instalação, obtidos nas consultas indicadas nos parâmetros.
+
+```json
+
+{
+  "name": "create_manual_loan",
+  "arguments": {
+    "confirmed": true,
+    "idempotency_key": "docs:create_manual_loan:01",
+    "spaceId": "personal",
+    "amountMinor": "120000",
+    "currency": "BRL",
+    "firstPaymentDate": "2026-10-01",
+    "installmentMinor": "10000",
+    "name": "Mercado de exemplo",
+    "paid": 0,
+    "total": 12
+  }
+}
+
+```
+
+## Interpretar o resultado
+
+Confira o resultado da chamada antes de dar a alteração como concluída. Se a rede falhar, repita somente os mesmos argumentos com a mesma chave. Atualize a leitura se a revisão estiver obsoleta antes de confirmar outra operação.
+
+O registro desta ferramenta não declara outputSchema. Consulte as regras de resposta no guia de contratos.
+
+## Contrato completo
+
+<details>
+
+<summary>Ver JSON Schema de entrada</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "confirmed": {
+      "type": "boolean",
+      "const": true
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "spaceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "amountMinor": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d{0,29})$"
+    },
+    "currency": {
+      "type": "string",
+      "enum": [
+        "BRL",
+        "USD",
+        "EUR",
+        "GBP",
+        "ARS",
+        "AUD",
+        "BHD",
+        "CAD",
+        "CHF",
+        "CLP",
+        "JPY",
+        "KWD"
+      ]
+    },
+    "firstPaymentDate": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+    },
+    "installmentMinor": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d{0,29})$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+    "paid": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 600
+    },
+    "personId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "total": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 600
+    }
+  },
+  "required": [
+    "confirmed",
+    "idempotency_key",
+    "spaceId",
+    "amountMinor",
+    "currency",
+    "firstPaymentDate",
+    "installmentMinor",
+    "name",
+    "paid",
+    "total"
+  ],
+  "additionalProperties": false
+}
+
+```
+
+
+
+</details>
+
+[Voltar para Dívidas e conciliação](/docs/assistentes/ferramentas/dividas) · [Confirmações e contratos](/docs/assistentes/contratos)

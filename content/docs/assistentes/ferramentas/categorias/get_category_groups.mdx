@@ -1,0 +1,75 @@
+---
+title: "get_category_groups"
+description: "Listar agrupadores de categorias de um espaço; não são espaços financeiros."
+---
+
+Categorias e etiquetas · Consultar · Consulta / prévia
+
+## Efeito da chamada
+
+Consulta ou simula sem gravar alterações financeiras nem iniciar uma importação.
+
+## Parâmetros
+
+| Campo | Obrigatório | Tipo | Uso |
+| --- | --- | --- | --- |
+| `personId` | Não | texto | Titular declarado. Obtenha seu ID em caderninho_status. |
+| `spaceId` | Não | texto | Espaço da instalação. Consulte get_spaces; o espaço inicial é personal. Padrão: "personal". |
+
+Filtros compostos e limites estão no schema completo. Campos não listados são recusados.
+
+## Exemplo de chamada
+
+Substitua os IDs fictícios pelos da sua instalação, obtidos nas consultas indicadas nos parâmetros.
+
+```json
+
+{
+  "name": "get_category_groups",
+  "arguments": {}
+}
+
+```
+
+## Interpretar o resultado
+
+Preserve moeda, valores desconhecidos, cobertura e datas de referência informados na resposta. Uma leitura sem registros não comprova ausência de movimentos no banco. Para totais, use agregações de toda a seleção.
+
+O registro desta ferramenta não declara outputSchema. Consulte as regras de resposta no guia de contratos.
+
+## Contrato completo
+
+<details>
+
+<summary>Ver JSON Schema de entrada</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "personId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "spaceId": {
+      "default": "personal",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    }
+  },
+  "additionalProperties": false
+}
+
+```
+
+
+
+</details>
+
+[Voltar para Categorias e etiquetas](/docs/assistentes/ferramentas/categorias) · [Confirmações e contratos](/docs/assistentes/contratos)

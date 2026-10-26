@@ -1,0 +1,51 @@
+---
+title: Autorizações e sessões
+description: Saiba qual acesso renovar sem confundir banco, Meu Pluggy, painel e assistentes.
+---
+
+Há quatro acessos na jornada. Cada um tem uma finalidade e sua própria forma de renovação.
+
+| Acesso | Finalidade | Onde cuidar |
+| --- | --- | --- |
+| Banco → Meu Pluggy | Disponibilizar dados da instituição | Meu Pluggy e aplicativo do banco |
+| Meu Pluggy → aplicação Pluggy | Permitir que a aplicação leia as conexões | Fluxo MeuPluggy da aplicação |
+| Administrador → painel | Abrir a instalação privada | Chave ou senha do Caderninho |
+| Assistente → Caderninho | Consultar e usar ferramentas MCP | Consentimento OAuth da instalação |
+
+## Autorização do Meu Pluggy
+
+O [guia oficial](https://docs.pluggy.ai/pt/docs/guides/meu-pluggy-personal-use) informa validade de um ano para a autorização do Meu Pluggy à aplicação. O consentimento de cada banco é separado.
+
+Após expirar, as listas podem voltar vazias antes de o status mostrar erro. O provedor expõe `consentExpiresAt` e pode retornar `USER_AUTHORIZATION_EXPIRED`.
+
+Renove pelo fluxo MeuPluggy da aplicação, entrando novamente com o titular correto. Uma sincronização automática não substitui esse login. Depois, confira qual conexão recebeu os dados: o provedor não garante manter o mesmo Item ID.
+
+## Sessão do painel
+
+O painel aceita a chave gerada na instalação ou a senha configurada pelo administrador. A sessão expira após oito horas do login. Uma nova versão do Worker ou a troca de chave/senha também invalida as sessões anteriores.
+
+Sair encerra o acesso desse navegador. Use [Recuperar o acesso](/docs/manutencao/acesso) quando precisar definir outra senha.
+
+## Autorizações dos assistentes
+
+Cada assistente recebe seu próprio consentimento OAuth. Revogar todos os assistentes remove essas autorizações. A sessão do painel permanece válida.
+
+Ao sair do painel ou trocar sua senha, as autorizações dos assistentes são preservadas. Para removê-las, use a ação de revogação.
+
+## Uso pessoal e limites
+
+O [guia de uso pessoal da Pluggy](https://docs.pluggy.ai/pt/docs/guides/meu-pluggy-personal-use) descreve o acesso às próprias contas, para uso não comercial, com até cinco conexões e sem expiração pelo fim do trial. A [página de preços](https://www.pluggy.ai/precos) informa que o limite é por titular. Criar perfis ou trocar credenciais no Caderninho não autoriza ultrapassar essa cota.
+
+Para reunir dados de outra pessoa, mesmo da família, confirme antes com a Pluggy se esse uso está coberto pelas condições da sua conta. Os materiais públicos consultados não esclarecem expressamente esse cenário. O [guia de acesso via API](https://meu.pluggy.ai/api-guide) distingue a leitura dos próprios dados de produtos que usam dados de terceiros. Hospedar um serviço para outras pessoas ou oferecer um produto comercial exige avaliar a modalidade adequada com o provedor.
+
+O Caderninho descrito nestes guias usa o conector MeuPluggy. Outra modalidade pode exigir mudanças na integração. O cadastro de vários titulares é uma capacidade técnica do Caderninho; sua disponibilidade não confirma a autorização da Pluggy para cada forma de uso.
+
+## Consentimento e serviços de terceiros
+
+Os [termos e a política de privacidade da Pluggy](https://www.pluggy.ai/legal) tratam do consentimento para acesso aos dados e orientam a leitura das condições de serviços de terceiros. A autorização bancária, o acesso ao painel e a conexão de um assistente têm finalidades diferentes.
+
+Antes de incluir outro titular, explique quem administra a instalação e quem poderá consultar os dados. Ao conectar um assistente, os resultados das ferramentas são enviados ao serviço escolhido e ficam sujeitos às condições e à política de privacidade dele. Todos os titulares envolvidos precisam estar de acordo com esse uso.
+
+Revogar um acesso interrompe aquele acesso conforme o serviço responsável. Isso não apaga automaticamente o histórico já importado no Caderninho nem as informações que já foram enviadas a um assistente.
+
+Estas orientações foram revisadas em 26 de outubro de 2026. Consulte as condições atuais da sua conta no provedor antes de mudar a forma de uso.

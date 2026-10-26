@@ -1,0 +1,28 @@
+---
+title: Pagamentos, transferências e boletos
+description: Capacidades do provedor que exigiriam uma nova integração e outro fluxo de confirmação.
+---
+
+As ferramentas atuais do Caderninho organizam dados e planejamento. Marcar uma fatura como paga ou conciliar uma parcela registra uma decisão local. Nenhuma ferramenta do catálogo executa um pagamento no banco.
+
+## Pix e intenções de pagamento
+
+A [documentação de pagamentos](https://docs.pluggy.ai/pt/docs/payments/overview) descreve clientes, destinatários, solicitações e intenções de pagamento. Uma integração precisaria apresentar destinatário, valor, moeda, situação e confirmação de execução claramente.
+
+## Agendamentos e Pix Automático
+
+O provedor também documenta pagamentos agendados e autorizações para Pix Automático. Esses fluxos exigiriam cadastro, cancelamento, acompanhamento e confirmação próprios. Uma recorrência de planejamento local não cria uma autorização bancária.
+
+## Smart Transfers
+
+[Smart Transfers](https://docs.pluggy.ai/pt/docs/smart-transfers/introduction) combina pré-autorizações e pagamentos. Uma extensão teria de representar o consentimento, seus limites e seu encerramento, além de cada execução financeira.
+
+## Boletos
+
+A [API de Gerenciamento de Boleto](https://docs.pluggy.ai/pt/docs/boleto/management-api) oferece outra família de operações. Integrar emissão, consulta ou cancelamento exigiria novos contratos de API e estados no produto.
+
+## O que uma extensão precisa decidir
+
+Antes de implementar, confirme a oferta disponível para a aplicação, a cobertura institucional, o responsável pela autorização e o efeito de cada operação. Pagamentos exigem consentimento específico para a operação, conforme os [termos da Pluggy](https://www.pluggy.ai/legal). A autorização de leitura dos bancos não habilita pagamentos. Esse trabalho altera a experiência de um produto que hoje concentra consultas e organização local.
+
+O mapa documenta possibilidades do provedor; ele não promete lançamento dessas funções no Caderninho.

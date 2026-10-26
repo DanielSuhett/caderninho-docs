@@ -1,0 +1,50 @@
+---
+title: Acompanhar importações
+description: Entenda fila, coleta parcial, histórico e o que significa uma importação concluída.
+---
+
+O Caderninho coleta o que a instituição disponibiliza: contas, transações, faturas, investimentos e empréstimos. Cada banco tem seu próprio andamento. Durante a configuração inicial, a lista de bancos mostra estes estados:
+
+| Estado no painel | O que significa | Próxima ação |
+| --- | --- | --- |
+| Não importado | O banco foi autorizado, mas ainda não tem uma importação registrada | Na primeira configuração, conclua Pessoas; depois, confira o histórico e as Sincronizações |
+| Importando | A importação está na fila ou em execução | Aguarde e consulte o mesmo histórico |
+| Parcial | Há dados publicados, mas a coleta não terminou por completo | Abra o histórico e leia o erro antes de repetir |
+| Falha | A importação foi interrompida | Abra o histórico e siga a mensagem; os dados já publicados permanecem disponíveis |
+| Conectado · histórico importado | A importação terminou e há histórico recebido | Confira a data do último sucesso e os dados disponíveis |
+
+## Ler os estados
+
+No histórico das importações, os estados indicam:
+
+| Situação | Significado | Ação |
+| --- | --- | --- |
+| Espera na fila | O pedido foi admitido e aguarda execução | Acompanhar o mesmo pedido |
+| Em execução | Uma fase ou conta está sendo processada | Consultar páginas já disponíveis |
+| Concluída | A enumeração disponível terminou | Conferir último sucesso e abrangência |
+| Falhou ou parcial | Parte da coleta não foi concluída | Ler o erro e preservar o que já foi publicado |
+| Próxima elegibilidade | Novo pedido ainda está na janela de espera | Aguardar o horário informado |
+
+A fase indica o trabalho em curso; o painel não calcula uma porcentagem de progresso.
+
+## Consultar antes do fim
+
+Consultar dados disponíveis aparece quando a primeira página está salva. O restante pode continuar sendo importado. Contas identificadas, por si só, ainda não significam transações publicadas.
+
+<GuideScreenshot id="caderninho-importacao" />
+
+Ao concluir, a consulta também pode estar vazia. A instituição pode oferecer apenas uma parte do histórico. Veja [Dados ausentes](/docs/bancos/problemas#faltam-transações).
+
+## Histórico cumulativo
+
+Uma coleta posterior atualiza registros recebidos novamente e acrescenta novos IDs. Uma janela menor ou vazia não apaga o histórico já importado. Edições locais e categorias definidas por você continuam preservadas.
+
+## Retomar depois de uma falha
+
+As páginas confirmadas permanecem disponíveis. Confira estado e erro antes de repetir o pedido. Uma execução ativa é reutilizada; uma tentativa terminal respeita a mesma janela de admissão.
+
+Se a leitura de status estiver indisponível, o painel conserva a última observação. Isso não significa, por si só, que o trabalho de importação falhou.
+
+## Perguntar ao assistente
+
+Peça: “Confira o estado das conexões e informe o último sucesso de cada banco.” A ferramenta [caderninho_status](/docs/assistentes/ferramentas/instalacao/caderninho_status) consulta o andamento sem iniciar coleta.

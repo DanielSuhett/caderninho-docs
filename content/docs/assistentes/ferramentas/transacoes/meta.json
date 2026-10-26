@@ -1,0 +1,17 @@
+{
+  "title": "Transações e compras",
+  "defaultOpen": false,
+  "pages": [
+    "index",
+    "batch_delete_transactions",
+    "batch_edit_transactions",
+    "create_transaction",
+    "delete_transaction",
+    "delete_transactions_by_period",
+    "edit_transaction",
+    "edit_transactions_by_period",
+    "get_transaction_purchases",
+    "get_transactions",
+    "move_transactions"
+  ]
+}

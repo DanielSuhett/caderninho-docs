@@ -1,0 +1,51 @@
+---
+title: Fazer o primeiro acesso
+description: Cadastre a primeira pessoa, autorize bancos e inicie a primeira importação.
+---
+
+Abra o link privado recebido no deploy, guarde a chave do painel e escolha Começar. Essa chave dá acesso administrativo ao Caderninho. O Client Secret fica no perfil Pluggy; a senha bancária só é informada no fluxo da instituição ou do Meu Pluggy. Nos próximos acessos, abra `/account` no endereço da instalação e use a chave ou a senha do painel configurada pelo administrador.
+
+## Preencher Pessoas
+
+1. Salve o nome e, se desejar, uma foto.
+
+   <GuideScreenshot id="caderninho-pessoa" />
+
+2. Quando solicitado, informe o Client ID e o Client Secret da aplicação Pluggy para o perfil associado a essa pessoa. O administrador configura as credenciais; a pessoa titular entra no Meu Pluggy para autorizar os bancos.
+
+   <GuideScreenshot id="caderninho-credenciais" />
+
+3. Use + para escolher e autorizar um banco que a pessoa já disponibilizou no Meu Pluggy.
+4. Adicione seus outros bancos, respeitando os limites da conta Pluggy.
+5. Escolha Concluir pessoas e importar.
+
+O perfil Pluggy da pessoa é reutilizado nos próximos bancos, mas cada banco exige sua própria autorização. O nome no Caderninho é uma atribuição declarada, não uma autenticação bancária. Para incluir outro titular, confirme primeiro as [condições de uso e acesso compartilhado](/docs/bancos/adicionar-pessoa).
+
+<GuideScreenshot id="caderninho-bancos" />
+
+## Acompanhar a primeira coleta
+
+<JourneyDiagram kind="importar" />
+
+A ação Concluir pessoas e importar solicita as primeiras coletas. O painel mostra a fila, a fase e o resultado de cada banco. Conexão e conta cadastradas ainda não confirmam que as transações chegaram. A consulta parcial fica disponível depois que a primeira página de transações é salva, enquanto a coleta continua.
+
+Quando as coletas iniciadas terminarem, Consultar apresenta o endereço MCP. Copiá-lo não conecta nem autoriza o assistente. Siga [Conectar seu assistente](/docs/assistentes/conectar) e consulte o estado das conexões para confirmar que o assistente alcançou esta instalação.
+
+<GuideScreenshot id="caderninho-importacao" />
+
+<Callout title="Recarregar preserva os pedidos">
+
+Se você fechar ou recarregar a página, consulte a importação existente ao retornar. Repetir o pedido reutiliza uma execução ativa. Não apague uma conexão para tentar acelerar a coleta.
+
+</Callout>
+
+## Reconhecer as ações
+
+| Ação em Pessoas | Uso |
+| --- | --- |
+| Caneta | Editar nome e foto da pessoa |
+| + | Autorizar outro banco |
+| Relógio | Abrir o histórico daquela conexão |
+| Ajustes | Rever credenciais, pausa, reautorização e titularidade |
+
+Depois, [conecte ChatGPT ou Claude](/docs/assistentes/conectar) ou [explore o painel](/docs/usar/visao-geral).

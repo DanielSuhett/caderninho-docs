@@ -1,0 +1,34 @@
+---
+title: Cartões, faturas e parcelas
+description: Separe gastos do mês, limite observado, faturas e parcelas futuras recebidas.
+---
+
+Abra Cartões para acompanhar compras, limites e parcelas. Use Filtros para escolher um cartão ou todos, além de pessoa, grupo, mês e moeda.
+
+## Gastos do mês
+
+O gasto do mês reúne as compras confirmadas no período, inclusive as que estão sem categoria. Estornos classificados como despesa reduzem esse total. O pagamento da fatura fica separado, porque somá-lo às compras contaria o mesmo gasto duas vezes.
+
+Pendentes e futuras ficam separadas. Um lançamento com data futura ainda não compõe o gasto realizado, mesmo que a origem o tenha marcado como registrado.
+
+## Limite do cartão
+
+O limite do banco e o crédito disponível informado vêm da instituição, quando esses dados estão presentes. A diferença entre os dois aparece como alocação observada. Confira a data dessa informação: mudar o mês das compras não transforma o limite recebido em um retrato daquele mês.
+
+Se você definir um limite local, o Caderninho estima o novo disponível subtraindo dele a ocupação recebida do banco. O resultado pode ser negativo. Essa preferência não altera o limite concedido pela instituição.
+
+Sem limite e disponível de origem, a ocupação e o disponível estimado ficam indisponíveis. Os gastos do mês não substituem esses dados.
+
+## Parcelas
+
+No detalhe, você vê o número, a data e o valor de cada parcela recebida. Parcelas que o banco não enviou ficam fora da lista. Quando falta uma data original que permita identificar a compra, o agrupamento pode ser estimado.
+
+Uma parcela recebida como `POSTED`, isto é, registrada pela origem, não comprova que as faturas anteriores foram pagas. Se os valores variam, o Caderninho mantém os valores conhecidos sem multiplicar uma parcela para supor o total da compra.
+
+## Faturas
+
+No assistente, [get_bills](/docs/assistentes/ferramentas/cartoes/get_bills) consulta as faturas. Marcar como paga registra sua confirmação no Caderninho e mantém a informação bancária separada. Essa ação não envia um pagamento ao banco.
+
+Planos de parcelas manuais ficam em [get_installments](/docs/assistentes/ferramentas/cartoes/get_installments). Eles ajudam o planejamento e não criam centenas de lançamentos bancários futuros.
+
+[Ferramentas de cartões](/docs/assistentes/ferramentas/cartoes) · [Referência detalhada](/docs/referencia/cards)

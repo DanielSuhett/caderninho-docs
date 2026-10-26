@@ -1,0 +1,99 @@
+{
+  "repository": "DanielSuhett/caderninho",
+  "commit": "cc2e5a444c24a0ea354f3ea1ad8911a15ac759ea",
+  "includesWorkingTreeChanges": true,
+  "toolCount": 104,
+  "toolSchemaSha256": "3dd5bce6e77b844e472f889d5c701ce246ba7b735050fe8355f0b2e851945d74",
+  "files": [
+    {
+      "file": "docs/adr-modular-monolith.md",
+      "url": "/docs/referencia/adr-modular-monolith",
+      "sha256": "b76a0a22883d87f90150c43ad443a64c2c190cf421febc4e66b844b395c528af"
+    },
+    {
+      "file": "docs/card-commitments.md",
+      "url": "/docs/referencia/card-commitments",
+      "sha256": "96916ac1c0ab0b8bf47a9b35eb1d0ac3f273a27f6cf30d58859684a2b8ff4e47"
+    },
+    {
+      "file": "docs/cards.md",
+      "url": "/docs/referencia/cards",
+      "sha256": "0bb1cb751fc44700dbf62390044975c6e41e46db81116efd563e140f3d37928e"
+    },
+    {
+      "file": "docs/categories.md",
+      "url": "/docs/referencia/categories",
+      "sha256": "b3362fd5fac80c3d1326095819a5eb039efe7bf2c0c1d7701ffef4b8d8dded2a"
+    },
+    {
+      "file": "docs/design-system.md",
+      "url": "/docs/referencia/design-system",
+      "sha256": "7322c914653a06e55c73920b8c173f224260f1eab7b9e36579b18d820b3f6942"
+    },
+    {
+      "file": "docs/frontend-workspace.md",
+      "url": "/docs/referencia/frontend-workspace",
+      "sha256": "dc8403b7eb6b6618f33df8e910125826ccd06db1815db4a2fac94d6574212b28"
+    },
+    {
+      "file": "docs/household.md",
+      "url": "/docs/referencia/household",
+      "sha256": "1e9ee040ea23fe90ba1b1062bf446b860131a239936a77eacd8303df8d544139"
+    },
+    {
+      "file": "docs/investments.md",
+      "url": "/docs/referencia/investments",
+      "sha256": "9629a492d8054de4e936d0c60c2ec9b03edb5b9655edc97f8c4d09454a0a8fe9"
+    },
+    {
+      "file": "docs/mcp-audit.md",
+      "url": "/docs/referencia/mcp-audit",
+      "sha256": "2c9fff43308e743b01ca4e7ee7647970b52895c770733b7dfe34b299d6eb53ca"
+    },
+    {
+      "file": "docs/mcp-finance.md",
+      "url": "/docs/referencia/mcp-finance",
+      "sha256": "443eda08feabf3a578b5443e2d0dd9e0f3fd05343eb8536969792dc15dedcbc0"
+    },
+    {
+      "file": "docs/mcp-tools.md",
+      "url": "/docs/referencia/mcp-tools",
+      "sha256": "9441cec6feab9a6b5e608e7aaed8268dc70e2635ddb28a6c00c1e03a3db27129"
+    },
+    {
+      "file": "docs/observability.md",
+      "url": "/docs/referencia/observability",
+      "sha256": "d00edcc17361d037ba293775ff63ec6c0d72dd9f0acfe16c0d3a1564c2db766f"
+    },
+    {
+      "file": "docs/onboarding.md",
+      "url": "/docs/referencia/onboarding",
+      "sha256": "3f1a257e5f62140cb0769875b2820de53320d4d673f019f37b93d923c184075a"
+    },
+    {
+      "file": "docs/rule-packs.md",
+      "url": "/docs/referencia/rule-packs",
+      "sha256": "d419ab2687db2285c00cfef01026dea7b3cf5a81dec92c9d3dae99b4846a73f7"
+    },
+    {
+      "file": "docs/seo.md",
+      "url": "/docs/referencia/seo",
+      "sha256": "1630edbf404875fff2b0db93c728c78e6a3727d281d4d6e1a3ff66671baaaac5"
+    },
+    {
+      "file": "docs/usage.md",
+      "url": "/docs/referencia/usage",
+      "sha256": "e1bdb73a05d33aac0efc3bf702d6198abbd58c0dec5ae08be63ba1ea4cb495cd"
+    },
+    {
+      "file": "README.md",
+      "url": "/docs/referencia/projeto",
+      "sha256": "0d85c426753bb6767c4a24c5d9e9046f8b986db5e337c7d41c835c0f46491777"
+    },
+    {
+      "file": "CONTRIBUTING.md",
+      "url": "/docs/referencia/contribuir",
+      "sha256": "93ea45b687f502303bdd91a3a308b2c5cba1bf9c4bb9df1f682b6f743763067b"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+---
+title: Inteligência e enriquecimento
+description: Separe as análises locais das APIs de inteligência oferecidas pela Pluggy.
+---
+
+O produto já calcula análises sobre o histórico local. Isso permite consultar despesas por categoria, comparação de períodos, ritmo de gastos e candidatos a assinaturas.
+
+## O que existe hoje
+
+As [ferramentas de análise](/docs/assistentes/ferramentas/analises) usam os registros efetivos do Caderninho. `get_subscriptions` identifica candidatos com frequência e evidências, sem confirmar contrato ou criar recorrência.
+
+O Clef é uma classificação opcional executada na Cloudflare. Ele preserva suas escolhas e as regras locais, usa as categorias do catálogo e considera a confiança configurada antes de classificar. O mapeamento da categoria Pluggy serve como alternativa. Os produtos de inteligência da Pluggy exigiriam outra integração.
+
+## Insights de conexão
+
+A Pluggy documenta indicadores financeiros e análise de renda associados a Items. Essa API pode apoiar uma extensão analítica, mas seus indicadores precisariam ter semântica, cobertura e referências temporais explícitas na instalação.
+
+Fonte: [Insights de Conexão](https://docs.pluggy.ai/pt/docs/intelligence/connection-insights).
+
+## Enriquecimento de transações
+
+O produto dedicado de enriquecimento oferece outra fonte de classificação e identificação. Integrá-lo exige definir precedência e preservar o texto bancário e as escolhas locais.
+
+Fonte: [Enriquecimento de Transações](https://docs.pluggy.ai/pt/docs/intelligence/transaction-enrichment).
+
+## Análise de pagamentos recorrentes
+
+A API de recorrências da Pluggy é uma possibilidade separada do detector local. Para usá-la, seria preciso identificar as evidências e limites da resposta, evitando apresentar uma hipótese como assinatura contratada.
+
+Fonte: [Análise de Pagamentos Recorrentes](https://docs.pluggy.ai/pt/docs/intelligence/recurring-payments).
+
+## Antes de integrar
+
+Confira cobertura e contratação, selecione apenas dados necessários e explique como uma sugestão é aceita. Regras e edições humanas continuam exigindo uma política de precedência explícita.

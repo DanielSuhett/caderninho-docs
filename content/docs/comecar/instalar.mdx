@@ -1,0 +1,53 @@
+---
+title: Instalar o Caderninho
+description: Crie sua instalação privada na Cloudflare e guarde a chave do primeiro acesso.
+---
+
+O Caderninho fica na sua conta Cloudflare, com painel, histórico financeiro e endereço para conectar assistentes. O administrador cuida da chave ou senha do painel e autoriza cada assistente separadamente.
+
+Para instalar, tenha uma conta Cloudflare e acesso ao GitHub para autorizar a instalação do repositório. Para conectar suas próprias contas, você também precisa do Meu Pluggy e do Dashboard Pluggy, onde obtém as credenciais da aplicação. Se pretende reunir dados de outra pessoa, confira antes as [condições para esse uso](/docs/bancos/autorizacoes#uso-pessoal-e-limites).
+
+O código é livre e não tem custo de licença. Cloudflare e Pluggy têm planos e limites próprios. Consulte os [preços da Cloudflare](https://developers.cloudflare.com/workers/platform/pricing/) e os [preços da Pluggy](https://www.pluggy.ai/precos). A instalação não garante que seu uso fique dentro de uma franquia gratuita.
+
+## Criar a instalação
+
+<JourneyDiagram kind="instalar" />
+
+1. Abra [Instalar na Cloudflare](https://deploy.workers.cloudflare.com/?url=https://github.com/DanielSuhett/caderninho).
+2. Entre na sua conta Cloudflare. Em Git account, selecione a conta GitHub que receberá sua cópia do projeto. Em Project name, escolha o nome da instalação.
+
+   <GuideScreenshot id="cloudflare-projeto" />
+
+3. Para uma instalação nova, escolha + Create new em Select KV namespace e Select D1 database. Dê nomes próprios aos dois recursos. O D1 guarda os dados financeiros; o KV guarda as autorizações dos assistentes. Confira a seleção para não reutilizar os recursos de outra instalação.
+
+   <GuideScreenshot id="cloudflare-recursos" />
+
+4. Mantenha a raiz do repositório, Build command `npm run build` e Deploy command `npm run deploy`. Confira os campos e escolha Deploy. Aguarde o resultado no log.
+
+   <GuideScreenshot id="cloudflare-comandos" />
+
+5. Após o deploy terminar, abra o link privado de acesso mostrado no log. Copie a chave para um gerenciador de senhas e escolha Começar.
+
+   <GuideScreenshot id="caderninho-chave" />
+
+O deploy gera a chave de acesso ao painel. No primeiro acesso, o administrador informa o Client ID e o Client Secret da aplicação Pluggy para o perfil da pessoa. A senha bancária é informada no fluxo do banco ou do Meu Pluggy.
+
+As telas da Cloudflare podem mudar de posição ou idioma. As capturas mostram o formulário de configuração; o resultado do deploy precisa ser conferido na sua conta. A [referência da Cloudflare](https://developers.cloudflare.com/workers/platform/deploy-buttons/) explica a criação do repositório e dos recursos pelo botão de instalação.
+
+<Callout title="Guarde o link como uma senha">
+
+O link inicial contém a sua chave de acesso. Guarde-o em local privado. O Caderninho armazena somente o hash da chave e não consegue mostrar a chave novamente depois.
+
+</Callout>
+
+## Conferir o resultado
+
+A instalação está pronta para configuração quando o link abre seu Caderninho e Começar leva ao cadastro da pessoa. A autorização dos bancos e a conexão do assistente acontecem nas etapas seguintes.
+
+Continue em [Preparar o Meu Pluggy](/docs/comecar/preparar-pluggy) e [Fazer o primeiro acesso](/docs/comecar/primeiro-acesso).
+
+## Atualizações
+
+A versão atual do projeto usa o schema inicial para um banco de dados novo. Instalações experimentais antigas precisam de avaliação antes de atualizar. Consulte [Atualizar a instalação](/docs/manutencao/atualizar).
+
+[Documentação original do projeto](/docs/referencia/projeto) · [Recuperar acesso](/docs/manutencao/acesso)

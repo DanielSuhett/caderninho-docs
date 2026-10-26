@@ -1,0 +1,94 @@
+---
+title: "get_goal_plan"
+description: "Quanto guardar por mês, arredondado para cima em unidades mínimas; sem presumir rendimento."
+---
+
+Metas e contribuições · Analisar · Consulta / prévia
+
+## Efeito da chamada
+
+Consulta ou simula sem gravar alterações financeiras nem iniciar uma importação.
+
+## Parâmetros
+
+| Campo | Obrigatório | Tipo | Uso |
+| --- | --- | --- | --- |
+| `personId` | Não | texto | Titular declarado. Obtenha seu ID em caderninho_status. |
+| `spaceId` | Não | texto | Espaço da instalação. Consulte get_spaces; o espaço inicial é personal. Padrão: "personal". |
+| `id` | Sim | texto | ID do registro devolvido por get_goals. |
+| `months` | Sim | inteiro | Quantidade de meses do horizonte ou plano, conforme esta ferramenta. Máximo: 1200. Mínimo: 1. |
+
+Filtros compostos e limites estão no schema completo. Campos não listados são recusados.
+
+## Exemplo de chamada
+
+Substitua os IDs fictícios pelos da sua instalação, obtidos nas consultas indicadas nos parâmetros.
+
+```json
+
+{
+  "name": "get_goal_plan",
+  "arguments": {
+    "id": "id-exemplo",
+    "months": 1
+  }
+}
+
+```
+
+## Interpretar o resultado
+
+Preserve moeda, valores desconhecidos, cobertura e datas de referência informados na resposta. Uma leitura sem registros não comprova ausência de movimentos no banco. Para totais, use agregações de toda a seleção.
+
+O registro desta ferramenta não declara outputSchema. Consulte as regras de resposta no guia de contratos.
+
+## Contrato completo
+
+<details>
+
+<summary>Ver JSON Schema de entrada</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "personId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "spaceId": {
+      "default": "personal",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "months": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1200
+    }
+  },
+  "required": [
+    "id",
+    "months"
+  ],
+  "additionalProperties": false
+}
+
+```
+
+
+
+</details>
+
+[Voltar para Metas e contribuições](/docs/assistentes/ferramentas/metas) · [Confirmações e contratos](/docs/assistentes/contratos)

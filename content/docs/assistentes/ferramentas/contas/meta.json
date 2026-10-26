@@ -1,0 +1,17 @@
+{
+  "title": "Contas e organização",
+  "defaultOpen": false,
+  "pages": [
+    "index",
+    "create_manual_account",
+    "create_space",
+    "delete_manual_account",
+    "delete_space",
+    "get_accounts",
+    "get_spaces",
+    "move_account",
+    "move_connection",
+    "update_account_settings",
+    "update_space"
+  ]
+}

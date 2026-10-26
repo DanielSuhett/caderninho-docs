@@ -1,0 +1,33 @@
+---
+title: Recuperar e proteger o acesso
+description: Guarde a chave inicial, redefina a senha quando necessário e revogue os assistentes pela ação correta.
+---
+
+Guarde a chave do primeiro deploy em um gerenciador de senhas. O log inicial contém o link privado com essa chave. Ambos dão acesso administrativo à instalação.
+
+## Quando a chave foi perdida
+
+O Caderninho guarda somente o hash da chave e não consegue recuperar o valor original. O administrador pode configurar um novo acesso pela sua conta Cloudflare.
+
+1. Abra o Worker da instalação no painel Cloudflare.
+2. Na configuração de variáveis e secrets, defina `ADMIN_PASSWORD` como secret.
+3. Use uma senha de 16 a 256 caracteres e salve a configuração.
+4. Abra `/account` na instalação e entre com a senha nova.
+
+`ADMIN_PASSWORD` passa a prevalecer sobre a chave gerada e invalida as sessões de painel anteriores. Guarde a senha em local privado. Essa alteração exige controle administrativo do Worker.
+
+## Encerrar acessos
+
+| Objetivo | Ação |
+| --- | --- |
+| Sair deste navegador | Usar Sair no painel |
+| Invalidar sessões anteriores do painel | Trocar a chave/senha administrativa ou publicar outra versão do Worker |
+| Remover os acessos MCP existentes | Usar Revogar todos os assistentes |
+
+As autorizações OAuth são independentes da sessão do painel. Sair, trocar a senha ou publicar outra versão do Worker não revoga o acesso MCP. Para remover esse acesso, use a ação de revogação.
+
+## O que compartilhar
+
+Compartilhe com o assistente somente o endereço MCP quando configurar a integração. Entre no consentimento da sua instalação para autorizar. Chave, senha e Client Secret ficam fora de mensagens e capturas públicas.
+
+[Autorizações e sessões](/docs/bancos/autorizacoes) · [Conectar um assistente](/docs/assistentes/conectar)

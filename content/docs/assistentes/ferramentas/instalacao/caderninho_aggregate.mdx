@@ -1,0 +1,182 @@
+---
+title: "caderninho_aggregate"
+description: "Totais exatos por moeda sobre todo o universo filtrado. Débito não equivale a gasto. Informe parcialidade, desconhecidos e referência temporal."
+---
+
+Instalação e dados da origem · Consultar · Consulta / prévia
+
+## Efeito da chamada
+
+Consulta ou simula sem gravar alterações financeiras nem iniciar uma importação.
+
+## Parâmetros
+
+| Campo | Obrigatório | Tipo | Uso |
+| --- | --- | --- | --- |
+| `filter` | Não | objeto | Filtro composto da ferramenta; veja objetos, alternativas e condições no schema. |
+| `groupBy` | Não | "account" / "category" / "month" | Agrupamento do agregado ou gráfico, conforme as opções desta ferramenta. |
+| `metric` | Não | "cash_flow" / "count" / "credits" / "debits" | count conta registros, inclusive pendentes e futuros. debits/credits somam magnitudes POSTED maduras; cash_flow aplica a direção somente em BANK. Padrão: "count". |
+
+Filtros compostos e limites estão no schema completo. Campos não listados são recusados.
+
+## Exemplo de chamada
+
+Substitua os IDs fictícios pelos da sua instalação, obtidos nas consultas indicadas nos parâmetros.
+
+```json
+
+{
+  "name": "caderninho_aggregate",
+  "arguments": {
+    "metric": "debits",
+    "groupBy": "category",
+    "filter": {
+      "currency": "BRL",
+      "from": "2026-10-01",
+      "to": "2026-10-31"
+    }
+  }
+}
+
+```
+
+## Interpretar o resultado
+
+Preserve moeda, valores desconhecidos, cobertura e datas de referência informados na resposta. Uma leitura sem registros não comprova ausência de movimentos no banco. Para totais, use agregações de toda a seleção.
+
+O registro desta ferramenta não declara outputSchema. Consulte as regras de resposta no guia de contratos.
+
+## Contrato completo
+
+<details>
+
+<summary>Ver JSON Schema de entrada</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "filter": {
+      "type": "object",
+      "properties": {
+        "accountIds": {
+          "description": "IDs de contas obtidos em status. IDs desconhecidos retornam NOT_FOUND.",
+          "minItems": 1,
+          "maxItems": 100,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "category": {
+          "description": "Categoria exata da origem, sensível a maiúsculas e minúsculas.",
+          "type": "string",
+          "maxLength": 2048
+        },
+        "connectionIds": {
+          "description": "IDs de conexões obtidos em status. IDs desconhecidos retornam NOT_FOUND.",
+          "minItems": 1,
+          "maxItems": 200,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          }
+        },
+        "currency": {
+          "description": "Moeda exata, por exemplo BRL. Obrigatória para limites monetários.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 12
+        },
+        "description": {
+          "description": "Trecho literal da descrição; ignora caixa, inclusive acentos portugueses. Não remove acentos nem aceita curingas.",
+          "type": "string",
+          "maxLength": 2048
+        },
+        "direction": {
+          "type": "string",
+          "enum": [
+            "DEBIT",
+            "CREDIT"
+          ]
+        },
+        "from": {
+          "description": "Dia financeiro inicial inclusivo, AAAA-MM-DD.",
+          "type": "string",
+          "format": "date",
+          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+        },
+        "maxAmountMinor": {
+          "description": "Limite máximo inclusivo do valor ASSINADO, em unidades menores da moeda, como string inteira. BRL -10000 = -R$100,00. Não é magnitude.",
+          "type": "string",
+          "pattern": "^-?(0|[1-9]\\d{0,29})$"
+        },
+        "minAmountMinor": {
+          "description": "Limite mínimo inclusivo do valor ASSINADO, em unidades menores da moeda, como string inteira. BRL 10000 = R$100,00. Não é magnitude.",
+          "type": "string",
+          "pattern": "^-?(0|[1-9]\\d{0,29})$"
+        },
+        "personId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "profileId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PENDING",
+            "POSTED"
+          ]
+        },
+        "to": {
+          "description": "Dia financeiro final inclusivo, AAAA-MM-DD.",
+          "type": "string",
+          "format": "date",
+          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "groupBy": {
+      "type": "string",
+      "enum": [
+        "account",
+        "category",
+        "month"
+      ]
+    },
+    "metric": {
+      "default": "count",
+      "description": "count conta registros, inclusive pendentes e futuros. debits/credits somam magnitudes POSTED maduras; cash_flow aplica a direção somente em BANK.",
+      "type": "string",
+      "enum": [
+        "cash_flow",
+        "count",
+        "credits",
+        "debits"
+      ]
+    }
+  },
+  "additionalProperties": false
+}
+
+```
+
+
+
+</details>
+
+[Voltar para Instalação e dados da origem](/docs/assistentes/ferramentas/instalacao) · [Confirmações e contratos](/docs/assistentes/contratos)

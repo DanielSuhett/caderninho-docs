@@ -1,0 +1,34 @@
+---
+title: Eventos, SDKs e integrações
+description: Possibilidades para acompanhar o provedor e ampliar a integração mantendo a importação recuperável.
+---
+
+O Caderninho atual usa sua agenda e Workflows para importar dados. O acompanhamento no painel lê o estado persistido. A instalação não exige um webhook Pluggy para funcionar.
+
+## Webhooks
+
+Os [webhooks da Pluggy](https://docs.pluggy.ai/pt/docs/developer-tools/webhooks-ref) podem sinalizar mudanças e erros. Uma futura integração poderia transformar eventos em pedidos de reconciliação, preservando a janela de admissão e as execuções existentes.
+
+Receber um evento não comprova que o dado foi importado. Seria necessário tratar repetição, ordem, falha e correlação antes de refletir sucesso no painel.
+
+## Estado e incidentes
+
+A [referência da API](https://docs.pluggy.ai/pt/reference) oferece recursos de saúde e incidentes. Eles podem apoiar explicações de indisponibilidade do provedor. O estado local da importação e o estado remoto do conector continuariam separados.
+
+## Conectores, Items e consentimentos
+
+Novas integrações podem ampliar a leitura de recursos de Item, metadados de consentimento e cobertura de conectores. Dados de expiração podem ajudar o usuário a renovar o acesso no momento correto.
+
+No Meu Pluggy pessoal, permissões e rotas disponíveis precisam ser conferidas no [guia próprio](https://docs.pluggy.ai/pt/docs/guides/meu-pluggy-personal-use). Evite presumir acesso a toda a API de Items.
+
+## SDKs, no-code e Sandbox
+
+O ecossistema oferece SDKs, integrações sem código, receitas e Sandbox. Eles podem acelerar protótipos e validações de novos adapters. O Sandbox serve para dados fictícios; um resultado nele precisa ser distinguido da conexão com um banco real.
+
+## MCP e ferramentas de IA
+
+O MCP da Pluggy e suas habilidades ajudam a consultar documentação e construir integrações. O MCP financeiro do Caderninho é o servidor da sua instalação, com seu próprio OAuth e catálogo.
+
+Uma integração com Slack ou outro host exige um escopo próprio de dados e autorização. A presença de suporte no ecossistema Pluggy não configura esse canal no Caderninho.
+
+[Explorar a documentação oficial](https://docs.pluggy.ai/pt)

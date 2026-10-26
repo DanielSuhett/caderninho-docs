@@ -1,0 +1,37 @@
+---
+title: Credenciais e backup
+description: Preserve histórico, regras, pessoas e o acesso às origens ao manter sua instalação.
+---
+
+Restaure os dados financeiros junto com as credenciais e a configuração do Worker. D1 guarda referências a valores no KV; recuperar apenas um dos dois pode deixar conexões ou autorizações inutilizáveis.
+
+## O que preservar
+
+| Recurso | Conteúdo |
+| --- | --- |
+| D1 | Histórico importado, edições, categorias, regras, pessoas, fotos e planejamento |
+| KV da instalação | Credenciais cadastradas pelo painel e dados de autorização OAuth |
+| Secrets e variáveis do Worker | Acesso administrativo, configuração e credenciais legadas quando usadas |
+| Configuração do deploy | Nomes e vínculos dos recursos da instalação |
+
+Antes de atualizar ou mover a instalação, registre quais recursos D1 e KV estão ligados ao Worker e preserve os secrets administrativos e Pluggy usados por ele. Guarde também a chave administrativa original no seu gerenciador de senhas. O hash existente no Worker não permite recuperar essa chave.
+
+## Rotacionar o segredo Pluggy
+
+Atualize o segredo pelo painel com o Client ID original. Um Client ID diferente representa outra aplicação e é recusado para proteger a identidade do histórico.
+
+Confira quais integrações usam a aplicação antes de gerar outro segredo no provedor. Depois, atualize as integrações correspondentes e consulte a configuração da instalação para confirmar o acesso.
+
+## Entender o cofre
+
+Credenciais cadastradas ficam no KV do servidor, com referências no D1. O painel, os resultados MCP e os logs de aplicação não devolvem o Client Secret.
+
+Quem administra o Worker e o KV mantém acesso administrativo a essas credenciais. O projeto usa a proteção da plataforma e não acrescenta uma chave própria de criptografia da aplicação.
+
+## Restaurar com os vínculos corretos
+
+Restaure D1, KV, secrets e configuração como um conjunto. Depois, confira se os bindings apontam para os recursos restaurados e se o Client ID da aplicação continua igual ao usado pelo histórico. Restaurar somente D1 pode deixar referências de credenciais sem o conteúdo correspondente; restaurar KV sem D1 pode deixar credenciais sem vínculo.
+
+Antes de trocar recursos, confira a compatibilidade do schema e preserve a origem. Recriar uma aplicação Pluggy ou trocar seu Client ID exige uma decisão explícita sobre o histórico existente.
+
+[Referência de pessoas e credenciais](/docs/referencia/household) · [Arquitetura e persistência](/docs/referencia/adr-modular-monolith)

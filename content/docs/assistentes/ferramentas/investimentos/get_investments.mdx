@@ -1,0 +1,825 @@
+---
+title: "get_investments"
+description: "Carteira do investidor: posições brutas/líquidas, resultado informado, resgate e alocação por classe/instituição, por moeda. Excluídos e resgatados não compõem totais; campos ausentes são desconhecidos. Não infere rentabilidade nem histórico."
+---
+
+Investimentos · Consultar · Consulta / prévia
+
+## Efeito da chamada
+
+Consulta ou simula sem gravar alterações financeiras nem iniciar uma importação.
+
+## Parâmetros
+
+| Campo | Obrigatório | Tipo | Uso |
+| --- | --- | --- | --- |
+| `personId` | Não | texto | Titular declarado. Obtenha seu ID em caderninho_status. |
+| `spaceId` | Não | texto | Espaço da instalação. Consulte get_spaces; o espaço inicial é personal. Padrão: "personal". |
+| `currency` | Não | "BRL" / "USD" / "EUR" / "GBP" / "ARS" / "AUD" / "BHD" / "CAD" / "CHF" / "CLP" / "JPY" / "KWD" | Moeda da operação. Valores de moedas diferentes permanecem separados. |
+| `institutionId` | Não | texto | Identificador da instituição disponível na carteira importada. |
+| `status` | Não | texto | Estado do registro ou filtro. Use somente as opções aceitas por esta ferramenta. |
+| `type` | Não | texto | Tipo do registro ou visualização, conforme as opções desta ferramenta. |
+
+Filtros compostos e limites estão no schema completo. Campos não listados são recusados.
+
+## Exemplo de chamada
+
+Substitua os IDs fictícios pelos da sua instalação, obtidos nas consultas indicadas nos parâmetros.
+
+```json
+
+{
+  "name": "get_investments",
+  "arguments": {}
+}
+
+```
+
+## Interpretar o resultado
+
+Preserve moeda, valores desconhecidos, cobertura e datas de referência informados na resposta. Uma leitura sem registros não comprova ausência de movimentos no banco. Para totais, use agregações de toda a seleção.
+
+O JSON Schema de saída está em Contrato completo.
+
+## Contrato completo
+
+<details>
+
+<summary>Ver JSON Schema de entrada</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "personId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "spaceId": {
+      "default": "personal",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "currency": {
+      "type": "string",
+      "enum": [
+        "BRL",
+        "USD",
+        "EUR",
+        "GBP",
+        "ARS",
+        "AUD",
+        "BHD",
+        "CAD",
+        "CHF",
+        "CLP",
+        "JPY",
+        "KWD"
+      ]
+    },
+    "institutionId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "status": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+    "type": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    }
+  },
+  "additionalProperties": false
+}
+
+```
+
+
+
+</details>
+
+<details>
+
+<summary>Ver JSON Schema de saída</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "connectionIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "imported",
+            "local_only",
+            "empty"
+          ]
+        },
+        "oldestLastSuccessAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "partial": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "connectionIds",
+        "kind",
+        "oldestLastSuccessAt",
+        "partial"
+      ],
+      "additionalProperties": false
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "amountMinor": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^-?\\d+$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "connectionId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "currency": {
+                "type": "string"
+              },
+              "date": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "details": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "annualRate": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^-?\\d+(\\.\\d+)?$"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "balanceMinor": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^-?\\d+$"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "code": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "dueDate": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "financialTaxMinor": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^-?\\d+$"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "fixedAnnualRate": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^-?\\d+(\\.\\d+)?$"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "incomeTaxMinor": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^-?\\d+$"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "issuer": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "lastMonthRate": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^-?\\d+(\\.\\d+)?$"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "lastTwelveMonthsRate": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^-?\\d+(\\.\\d+)?$"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "originalMinor": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^-?\\d+$"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "profitMinor": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^-?\\d+$"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "purchaseDate": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "quantity": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^-?\\d+(\\.\\d+)?$"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "rate": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^-?\\d+(\\.\\d+)?$"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "rateType": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "status": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "subtype": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "withdrawalMinor": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^-?\\d+$"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "annualRate",
+                      "balanceMinor",
+                      "code",
+                      "dueDate",
+                      "financialTaxMinor",
+                      "fixedAnnualRate",
+                      "incomeTaxMinor",
+                      "issuer",
+                      "lastMonthRate",
+                      "lastTwelveMonthsRate",
+                      "originalMinor",
+                      "profitMinor",
+                      "purchaseDate",
+                      "quantity",
+                      "rate",
+                      "rateType",
+                      "status",
+                      "subtype",
+                      "withdrawalMinor"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "identity": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "cardBrand": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "institution": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "logoUrl": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "logoUrl",
+                              "name"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "cardBrand",
+                      "institution"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "included": {
+                "type": "boolean"
+              },
+              "manual": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              },
+              "personId": {
+                "type": "string"
+              },
+              "personName": {
+                "type": "string"
+              },
+              "profileId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "spaceId": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "amountMinor",
+              "connectionId",
+              "currency",
+              "date",
+              "id",
+              "included",
+              "manual",
+              "name",
+              "spaceId",
+              "type"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "totals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "byInstitution": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "knownMinor": {
+                      "type": "string",
+                      "pattern": "^-?\\d+$"
+                    },
+                    "totalMinor": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^-?\\d+$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "unknownCount": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "knownMinor",
+                    "totalMinor",
+                    "unknownCount",
+                    "id",
+                    "name"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "byType": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "knownMinor": {
+                      "type": "string",
+                      "pattern": "^-?\\d+$"
+                    },
+                    "totalMinor": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^-?\\d+$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "unknownCount": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "knownMinor",
+                    "totalMinor",
+                    "unknownCount",
+                    "id",
+                    "name"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "count": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "currency": {
+                "type": "string"
+              },
+              "gross": {
+                "type": "object",
+                "properties": {
+                  "knownMinor": {
+                    "type": "string",
+                    "pattern": "^-?\\d+$"
+                  },
+                  "totalMinor": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^-?\\d+$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "unknownCount": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "knownMinor",
+                  "totalMinor",
+                  "unknownCount"
+                ],
+                "additionalProperties": false
+              },
+              "net": {
+                "type": "object",
+                "properties": {
+                  "knownMinor": {
+                    "type": "string",
+                    "pattern": "^-?\\d+$"
+                  },
+                  "totalMinor": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^-?\\d+$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "unknownCount": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "knownMinor",
+                  "totalMinor",
+                  "unknownCount"
+                ],
+                "additionalProperties": false
+              },
+              "original": {
+                "type": "object",
+                "properties": {
+                  "knownMinor": {
+                    "type": "string",
+                    "pattern": "^-?\\d+$"
+                  },
+                  "totalMinor": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^-?\\d+$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "unknownCount": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "knownMinor",
+                  "totalMinor",
+                  "unknownCount"
+                ],
+                "additionalProperties": false
+              },
+              "profit": {
+                "type": "object",
+                "properties": {
+                  "knownMinor": {
+                    "type": "string",
+                    "pattern": "^-?\\d+$"
+                  },
+                  "totalMinor": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^-?\\d+$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "unknownCount": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "knownMinor",
+                  "totalMinor",
+                  "unknownCount"
+                ],
+                "additionalProperties": false
+              },
+              "withdrawal": {
+                "type": "object",
+                "properties": {
+                  "knownMinor": {
+                    "type": "string",
+                    "pattern": "^-?\\d+$"
+                  },
+                  "totalMinor": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^-?\\d+$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "unknownCount": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "knownMinor",
+                  "totalMinor",
+                  "unknownCount"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "byInstitution",
+              "byType",
+              "count",
+              "currency",
+              "gross",
+              "net",
+              "original",
+              "profit",
+              "withdrawal"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "records",
+        "totals"
+      ],
+      "additionalProperties": false
+    },
+    "oldestLastSuccessAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "partial": {
+      "type": "boolean"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "personId": {
+          "type": "string"
+        },
+        "spaceId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "spaceId"
+      ],
+      "additionalProperties": false
+    },
+    "view": {
+      "type": "string",
+      "const": "effective"
+    }
+  },
+  "required": [
+    "coverage",
+    "data",
+    "oldestLastSuccessAt",
+    "partial",
+    "revision",
+    "scope",
+    "view"
+  ],
+  "additionalProperties": {}
+}
+
+```
+
+
+
+</details>
+
+[Voltar para Investimentos](/docs/assistentes/ferramentas/investimentos) · [Confirmações e contratos](/docs/assistentes/contratos)

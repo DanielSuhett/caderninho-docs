@@ -1,0 +1,20 @@
+{
+  "title": "Ferramentas MCP",
+  "defaultOpen": false,
+  "pages": [
+    "index",
+    "instalacao",
+    "contas",
+    "transacoes",
+    "analises",
+    "cartoes",
+    "categorias",
+    "regras",
+    "orcamento",
+    "recorrencias",
+    "investimentos",
+    "dividas",
+    "metas",
+    "avisos"
+  ]
+}

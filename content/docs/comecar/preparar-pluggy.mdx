@@ -1,0 +1,44 @@
+---
+title: Preparar o Meu Pluggy
+description: Entenda onde os bancos são autorizados e quais credenciais entram no Caderninho.
+---
+
+Para conectar suas próprias contas, você autoriza os bancos no Meu Pluggy e obtém as credenciais da aplicação no Dashboard Pluggy. O administrador informa essas credenciais no Caderninho. O nome cadastrado no Caderninho não autentica a pessoa no provedor.
+
+<JourneyDiagram kind="pluggy" />
+
+## Autorizar seus bancos
+
+1. Entre no [Meu Pluggy](https://meu.pluggy.ai/) com o acesso da pessoa titular.
+2. Adicione o banco desejado e complete a autorização no fluxo oferecido pelo banco.
+3. Confira se o banco aparece conectado no Meu Pluggy.
+
+O Caderninho lista os bancos já conectados no Meu Pluggy da pessoa. Conectar um banco ali não inicia a importação. Depois, autorize-o no Caderninho, conclua Pessoas e acompanhe a coleta no painel.
+
+## Obter o acesso da aplicação
+
+Entre no [Dashboard Pluggy](https://dashboard.pluggy.ai/) com a mesma conta usada no Meu Pluggy, conforme o [guia oficial de uso pessoal](https://docs.pluggy.ai/pt/docs/guides/meu-pluggy-personal-use). Em Aplicações, copie o Client ID da sua aplicação. O Client Secret aparece quando é gerado; se não o guardou, gere outro na página da aplicação. Informe esse par no Caderninho quando o fluxo pedir as credenciais.
+
+Ao gerar outro Client Secret, o anterior deixa de funcionar. Atualize também as integrações que usavam esse segredo. A [referência pública do Dashboard](https://docs.pluggy.ai/pt/docs/guides/dashboard-connectors#4-client-id-e-client-secret) mostra onde encontrar as credenciais e explica a rotação.
+
+<GuideScreenshot id="caderninho-credenciais" />
+
+A configuração cria um perfil Pluggy associado à pessoa selecionada, reutilizado nos próximos bancos dela. O Caderninho valida a aplicação e recusa um Client ID já cadastrado em outro perfil. Essa verificação preserva o vínculo das credenciais; criar aplicações extras não autoriza ampliar a cota do provedor.
+
+O Client Secret pertence à aplicação e é diferente da chave de acesso do painel. A chave do painel é gerada no deploy para o administrador entrar no Caderninho. A senha bancária é informada somente na jornada oferecida pela instituição ou pelo provedor; ela não é uma credencial de configuração do Caderninho.
+
+## Escolher o conector certo
+
+Caso a lista de conectores seja personalizada no Dashboard, confira se MeuPluggy está habilitado. O [guia oficial de uso pessoal](https://docs.pluggy.ai/pt/docs/guides/meu-pluggy-personal-use) mostra as telas do provedor e as condições atuais desse acesso.
+
+<GuideScreenshot id="pluggy-conectores" />
+
+Na autorização que abre a partir do Caderninho, procure MeuPluggy na categoria Pessoal. Depois, selecione o banco que já está conectado no seu Meu Pluggy. A lista e os rótulos podem mudar; confira o nome do conector antes de continuar.
+
+<GuideScreenshot id="pluggy-meupluggy" />
+
+No uso pessoal descrito aqui, a aprovação do banco acontece primeiro no Meu Pluggy. Se você escolheu diretamente o banco no widget e recebeu outro pedido de CPF e aprovação bancária, volte à seleção e escolha MeuPluggy.
+
+## Preparar outra pessoa
+
+Antes de configurar outro titular, confirme as [condições desse uso](/docs/bancos/autorizacoes#uso-pessoal-e-limites). O perfil guarda as credenciais da aplicação e fica associado à pessoa selecionada, como atribuição na instalação. Confira também a conta ativa no Meu Pluggy. O roteiro está em [Adicionar outra pessoa](/docs/bancos/adicionar-pessoa).

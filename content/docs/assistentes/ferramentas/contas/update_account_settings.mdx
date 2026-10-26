@@ -1,0 +1,143 @@
+---
+title: "update_account_settings"
+description: "Editar apresentação e definir limite local de cartão; null restaura o limite importado. Não altera o banco. Ciclo somente para cartões manuais."
+---
+
+Contas e organização · Editar ou configurar · Escrita local
+
+## Efeito da chamada
+
+Esta ferramenta altera dados locais da instalação. Confirme a ação e o espaço com o proprietário antes de enviar confirmed: true e uma chave de idempotência. Ela não altera registros nem executa pagamentos no banco.
+
+## Parâmetros
+
+| Campo | Obrigatório | Tipo | Uso |
+| --- | --- | --- | --- |
+| `confirmed` | Sim | true | Deve ser true somente depois da confirmação explícita do proprietário. |
+| `idempotency_key` | Sim | texto | Chave única para esta solicitação. Reutilize apenas para repetir exatamente a mesma operação. |
+| `spaceId` | Sim | texto | Espaço da instalação. Consulte get_spaces; o espaço inicial é personal. |
+| `id` | Sim | texto | ID do registro devolvido por get_accounts. |
+| `closeDay` | Não | inteiro | Dia de fechamento do cartão manual, dentro dos limites do contrato. Máximo: 31. Mínimo: 1. |
+| `creditLimitMinor` | Não | texto ou null | Limite local do cartão em unidades menores; null restaura o valor importado. |
+| `dueDay` | Não | inteiro | Dia de vencimento do cartão manual. Máximo: 31. Mínimo: 1. |
+| `hidden` | Não | booleano | Oculta ou restaura a apresentação do registro, preservando seu histórico. |
+| `name` | Não | texto | Nome de exibição do registro. |
+| `personId` | Não | texto | Titular declarado. Obtenha seu ID em caderninho_status. |
+| `expected_revision` | Não | inteiro | Revisão obtida na leitura ou prévia. Uma revisão obsoleta exige nova leitura. Máximo: 9007199254740991. Mínimo: 0. |
+
+Filtros compostos e limites estão no schema completo. Campos não listados são recusados.
+
+## Exemplo de chamada
+
+Substitua os IDs fictícios pelos da sua instalação, obtidos nas consultas indicadas nos parâmetros.
+
+```json
+
+{
+  "name": "update_account_settings",
+  "arguments": {
+    "confirmed": true,
+    "idempotency_key": "docs:update_account_settings:01",
+    "spaceId": "personal",
+    "id": "id-exemplo",
+    "name": "Conta do dia a dia"
+  }
+}
+
+```
+
+## Interpretar o resultado
+
+Confira o resultado da chamada antes de dar a alteração como concluída. Se a rede falhar, repita somente os mesmos argumentos com a mesma chave. Atualize a leitura se a revisão estiver obsoleta antes de confirmar outra operação.
+
+O registro desta ferramenta não declara outputSchema. Consulte as regras de resposta no guia de contratos.
+
+## Contrato completo
+
+<details>
+
+<summary>Ver JSON Schema de entrada</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "confirmed": {
+      "type": "boolean",
+      "const": true
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "spaceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "closeDay": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 31
+    },
+    "creditLimitMinor": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^(0|[1-9]\\d{0,29})$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "dueDay": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 31
+    },
+    "hidden": {
+      "type": "boolean"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+    "personId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "expected_revision": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    }
+  },
+  "required": [
+    "confirmed",
+    "idempotency_key",
+    "spaceId",
+    "id"
+  ],
+  "additionalProperties": false
+}
+
+```
+
+
+
+</details>
+
+[Voltar para Contas e organização](/docs/assistentes/ferramentas/contas) · [Confirmações e contratos](/docs/assistentes/contratos)

@@ -1,0 +1,28 @@
+---
+title: Referência do projeto
+description: Documentos técnicos preservados, contratos e rastreabilidade da documentação.
+---
+
+Aqui estão os documentos técnicos da pasta `docs/` do Caderninho, além do README e do guia de contribuição.
+
+## Por onde começar
+
+| Assunto | Documento |
+| --- | --- |
+| Instalação e onboarding | [Projeto](/docs/referencia/projeto) e [onboarding](/docs/referencia/onboarding) |
+| Pessoas e credenciais | [Pessoas e bancos](/docs/referencia/household) |
+| Regras e classificação | [Categorias](/docs/referencia/categories) e [pacotes](/docs/referencia/rule-packs) |
+| MCP e contratos | [MCP financeiro](/docs/referencia/mcp-finance), [inventário](/docs/referencia/mcp-tools) e [auditoria](/docs/referencia/mcp-audit) |
+| Operação e arquitetura | [Observabilidade](/docs/referencia/observability), [arquitetura](/docs/referencia/adr-modular-monolith) e [contribuição](/docs/referencia/contribuir) |
+
+## Origem dos textos
+
+Os textos mantêm o conteúdo original, com links ajustados para este site. Relatos de testes, medições e limites valem para as condições descritas em cada documento.
+
+Um manifesto no repositório dos guias registra o commit de origem, se havia alterações locais e os hashes dos documentos. O mantenedor atualiza essa cópia; o site publicado não acessa o checkout financeiro.
+
+## Origem do catálogo MCP
+
+O catálogo usa as ferramentas, descrições e schemas de `src/contracts`. Os exemplos são validados pelo schema de entrada, sem executar chamadas financeiras.
+
+Consulte o [catálogo navegável](/docs/assistentes/ferramentas) ou baixe o [JSON do registro](/examples/mcp-tools.json) com os contratos completos.

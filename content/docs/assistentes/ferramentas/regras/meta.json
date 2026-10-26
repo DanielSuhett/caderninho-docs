@@ -1,0 +1,15 @@
+{
+  "title": "Regras de classificação",
+  "defaultOpen": false,
+  "pages": [
+    "index",
+    "apply_rules",
+    "create_rule",
+    "delete_rule",
+    "get_rules",
+    "import_rules",
+    "preview_rule",
+    "preview_rule_import",
+    "update_rule"
+  ]
+}

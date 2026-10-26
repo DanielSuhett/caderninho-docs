@@ -1,0 +1,470 @@
+---
+title: "preview_rule_import"
+description: "Conferir importação de JSON de regras compostas, categorias e duplicatas, sem gravar. Retorna revisão para confirmação."
+---
+
+Regras de classificação · Simular · Consulta / prévia
+
+## Efeito da chamada
+
+Consulta ou simula sem gravar alterações financeiras nem iniciar uma importação.
+
+## Parâmetros
+
+| Campo | Obrigatório | Tipo | Uso |
+| --- | --- | --- | --- |
+| `categoryIds` | Não | objeto | IDs de categorias devolvidos por get_categories no espaço selecionado. Padrão: {}. |
+| `pack` | Sim | objeto | Pacote JSON de regras e categorias. Faça a prévia antes de confirmar a importação. |
+| `spaceId` | Sim | texto | Espaço da instalação. Consulte get_spaces; o espaço inicial é personal. |
+
+Filtros compostos e limites estão no schema completo. Campos não listados são recusados.
+
+## Exemplo de chamada
+
+Substitua os IDs fictícios pelos da sua instalação, obtidos nas consultas indicadas nos parâmetros.
+
+```json
+
+{
+  "name": "preview_rule_import",
+  "arguments": {
+    "pack": {
+      "categories": [
+        {
+          "key": "key-exemplo",
+          "kind": "expense",
+          "name": "Mercado de exemplo"
+        }
+      ],
+      "id": "id-exemplo",
+      "rules": [
+        {
+          "name": "Mercado de exemplo",
+          "categoryKey": "key-exemplo",
+          "key": "key-exemplo",
+          "text": "MERCADO"
+        }
+      ],
+      "version": 1
+    },
+    "spaceId": "personal"
+  }
+}
+
+```
+
+## Interpretar o resultado
+
+Preserve moeda, valores desconhecidos, cobertura e datas de referência informados na resposta. Uma leitura sem registros não comprova ausência de movimentos no banco. Para totais, use agregações de toda a seleção.
+
+O registro desta ferramenta não declara outputSchema. Consulte as regras de resposta no guia de contratos.
+
+## Contrato completo
+
+<details>
+
+<summary>Ver JSON Schema de entrada</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "categoryIds": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$"
+      },
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 160
+      }
+    },
+    "pack": {
+      "type": "object",
+      "properties": {
+        "categories": {
+          "minItems": 1,
+          "maxItems": 50,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "income",
+                  "expense",
+                  "transfer"
+                ]
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 240
+              }
+            },
+            "required": [
+              "key",
+              "kind",
+              "name"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$"
+        },
+        "rules": {
+          "minItems": 1,
+          "maxItems": 100,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "accountId": {
+                "default": null,
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 160
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "direction": {
+                "default": null,
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "enum": [
+                      "DEBIT",
+                      "CREDIT"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "enabled": {
+                "default": true,
+                "type": "boolean"
+              },
+              "filter": {
+                "default": null,
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "alternatives": {
+                        "minItems": 1,
+                        "maxItems": 4,
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "conditions": {
+                              "minItems": 1,
+                              "maxItems": 8,
+                              "type": "array",
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "field": {
+                                        "type": "string",
+                                        "const": "description"
+                                      },
+                                      "operator": {
+                                        "type": "string",
+                                        "enum": [
+                                          "contains",
+                                          "not_contains",
+                                          "equals",
+                                          "starts_with"
+                                        ]
+                                      },
+                                      "value": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 160
+                                      }
+                                    },
+                                    "required": [
+                                      "field",
+                                      "operator",
+                                      "value"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "field": {
+                                        "type": "string",
+                                        "const": "direction"
+                                      },
+                                      "operator": {
+                                        "type": "string",
+                                        "const": "equals"
+                                      },
+                                      "value": {
+                                        "type": "string",
+                                        "enum": [
+                                          "DEBIT",
+                                          "CREDIT"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "field",
+                                      "operator",
+                                      "value"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "field": {
+                                        "type": "string",
+                                        "const": "status"
+                                      },
+                                      "operator": {
+                                        "type": "string",
+                                        "const": "equals"
+                                      },
+                                      "value": {
+                                        "type": "string",
+                                        "enum": [
+                                          "POSTED",
+                                          "PENDING"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "field",
+                                      "operator",
+                                      "value"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "field": {
+                                        "type": "string",
+                                        "const": "accountId"
+                                      },
+                                      "operator": {
+                                        "type": "string",
+                                        "const": "equals"
+                                      },
+                                      "value": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 160
+                                      }
+                                    },
+                                    "required": [
+                                      "field",
+                                      "operator",
+                                      "value"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "field": {
+                                        "type": "string",
+                                        "const": "personId"
+                                      },
+                                      "operator": {
+                                        "type": "string",
+                                        "const": "equals"
+                                      },
+                                      "value": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 160
+                                      }
+                                    },
+                                    "required": [
+                                      "field",
+                                      "operator",
+                                      "value"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "field": {
+                                        "type": "string",
+                                        "const": "date"
+                                      },
+                                      "operator": {
+                                        "type": "string",
+                                        "enum": [
+                                          "equals",
+                                          "gte",
+                                          "lte"
+                                        ]
+                                      },
+                                      "value": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+                                      }
+                                    },
+                                    "required": [
+                                      "field",
+                                      "operator",
+                                      "value"
+                                    ],
+                                    "additionalProperties": false
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "field": {
+                                        "type": "string",
+                                        "const": "amount"
+                                      },
+                                      "operator": {
+                                        "type": "string",
+                                        "enum": [
+                                          "equals",
+                                          "gte",
+                                          "lte"
+                                        ]
+                                      },
+                                      "value": {
+                                        "type": "string",
+                                        "pattern": "^(0|[1-9]\\d{0,29})$"
+                                      }
+                                    },
+                                    "required": [
+                                      "field",
+                                      "operator",
+                                      "value"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "conditions"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "currency": {
+                        "default": null,
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^[A-Z]{3}$"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "alternatives"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 240
+              },
+              "priority": {
+                "default": 100,
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1000
+              },
+              "text": {
+                "default": "",
+                "type": "string",
+                "maxLength": 240
+              },
+              "categoryKey": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$"
+              },
+              "key": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$"
+              }
+            },
+            "required": [
+              "name",
+              "categoryKey",
+              "key"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "version": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "categories",
+        "id",
+        "rules",
+        "version"
+      ],
+      "additionalProperties": false
+    },
+    "spaceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    }
+  },
+  "required": [
+    "pack",
+    "spaceId"
+  ],
+  "additionalProperties": false
+}
+
+```
+
+
+
+</details>
+
+[Voltar para Regras de classificação](/docs/assistentes/ferramentas/regras) · [Confirmações e contratos](/docs/assistentes/contratos)

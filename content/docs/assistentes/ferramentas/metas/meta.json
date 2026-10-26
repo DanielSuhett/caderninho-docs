@@ -1,0 +1,18 @@
+{
+  "title": "Metas e contribuições",
+  "defaultOpen": false,
+  "pages": [
+    "index",
+    "add_goal_contribution",
+    "complete_goal",
+    "create_goal",
+    "delete_goal",
+    "get_goal_plan",
+    "get_goals",
+    "link_goal_asset",
+    "remove_goal_contribution",
+    "unlink_goal_asset",
+    "unlink_goal_transaction",
+    "update_goal"
+  ]
+}

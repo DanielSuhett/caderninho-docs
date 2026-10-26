@@ -1,0 +1,147 @@
+---
+title: "create_space"
+description: "Criar espaço local da mesma pessoa; não cria usuários nem permissões."
+---
+
+Contas e organização · Criar · Escrita local
+
+## Efeito da chamada
+
+Esta ferramenta altera dados locais da instalação. Confirme a ação e o espaço com o proprietário antes de enviar confirmed: true e uma chave de idempotência. Ela não altera registros nem executa pagamentos no banco.
+
+## Parâmetros
+
+| Campo | Obrigatório | Tipo | Uso |
+| --- | --- | --- | --- |
+| `confirmed` | Sim | true | Deve ser true somente depois da confirmação explícita do proprietário. |
+| `idempotency_key` | Sim | texto | Chave única para esta solicitação. Reutilize apenas para repetir exatamente a mesma operação. |
+| `spaceId` | Sim | texto | Espaço da instalação. Consulte get_spaces; o espaço inicial é personal. |
+| `color` | Não | texto | Cor de apresentação no formato hexadecimal aceito pelo catálogo. Padrão: "blue". |
+| `currency` | Sim | "BRL" / "USD" / "EUR" / "GBP" / "ARS" / "AUD" / "BHD" / "CAD" / "CHF" / "CLP" / "JPY" / "KWD" | Moeda da operação. Valores de moedas diferentes permanecem separados. |
+| `icon` | Não | texto | Identificador de ícone aceito pelo catálogo do produto. Padrão: "wallet". |
+| `monthStartDay` | Não | inteiro | Dia que inicia o ciclo financeiro do espaço. Padrão: 1. Máximo: 28. Mínimo: 1. |
+| `name` | Sim | texto | Nome de exibição do registro. |
+| `type` | Não | "personal" / "business" / "family" | Tipo do registro ou visualização, conforme as opções desta ferramenta. Padrão: "personal". |
+
+Filtros compostos e limites estão no schema completo. Campos não listados são recusados.
+
+## Exemplo de chamada
+
+Substitua os IDs fictícios pelos da sua instalação, obtidos nas consultas indicadas nos parâmetros.
+
+```json
+
+{
+  "name": "create_space",
+  "arguments": {
+    "confirmed": true,
+    "idempotency_key": "docs:create_space:01",
+    "spaceId": "personal",
+    "currency": "BRL",
+    "name": "Mercado de exemplo"
+  }
+}
+
+```
+
+## Interpretar o resultado
+
+Confira o resultado da chamada antes de dar a alteração como concluída. Se a rede falhar, repita somente os mesmos argumentos com a mesma chave. Atualize a leitura se a revisão estiver obsoleta antes de confirmar outra operação.
+
+O registro desta ferramenta não declara outputSchema. Consulte as regras de resposta no guia de contratos.
+
+## Contrato completo
+
+<details>
+
+<summary>Ver JSON Schema de entrada</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "confirmed": {
+      "type": "boolean",
+      "const": true
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "spaceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "color": {
+      "default": "blue",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+    "currency": {
+      "type": "string",
+      "enum": [
+        "BRL",
+        "USD",
+        "EUR",
+        "GBP",
+        "ARS",
+        "AUD",
+        "BHD",
+        "CAD",
+        "CHF",
+        "CLP",
+        "JPY",
+        "KWD"
+      ]
+    },
+    "icon": {
+      "default": "wallet",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+    "monthStartDay": {
+      "default": 1,
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 28
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+    "type": {
+      "default": "personal",
+      "type": "string",
+      "enum": [
+        "personal",
+        "business",
+        "family"
+      ]
+    }
+  },
+  "required": [
+    "confirmed",
+    "idempotency_key",
+    "spaceId",
+    "currency",
+    "name"
+  ],
+  "additionalProperties": false
+}
+
+```
+
+
+
+</details>
+
+[Voltar para Contas e organização](/docs/assistentes/ferramentas/contas) · [Confirmações e contratos](/docs/assistentes/contratos)

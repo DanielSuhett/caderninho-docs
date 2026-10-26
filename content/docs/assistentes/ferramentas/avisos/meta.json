@@ -1,0 +1,9 @@
+{
+  "title": "Preferências de avisos",
+  "defaultOpen": false,
+  "pages": [
+    "index",
+    "get_notification_preferences",
+    "set_notification_preference"
+  ]
+}

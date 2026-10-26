@@ -1,0 +1,38 @@
+---
+title: Manter os bancos conectados
+description: Confira a atualização de cada banco e reconheça quando é preciso renovar uma autorização.
+---
+
+Abra Pessoas para conferir seus bancos. Use o relógio de uma conexão para abrir seu histórico ou consulte Sincronizações para ver as rodadas da instalação.
+
+## Rotina rápida
+
+1. Confira em Pessoas se cada banco aparece como conectado e veja a data do último sucesso.
+2. Se houver falha ou coleta parcial, abra o histórico pelo relógio e leia a mensagem antes de repetir.
+3. Se o painel pedir novo acesso, consulte a seção Quando reautorizar e faça o fluxo com o titular correto.
+
+Para interromper novas importações, use a pausa de perfil descrita em [Quando pausar](#quando-pausar). Desconectar a origem no Meu Pluggy tem outro efeito: interrompe o acesso aos dados no provedor.
+
+## Conferir a última atualização
+
+Confira a data do último sucesso e o estado da importação. A próxima elegibilidade informa quando outro pedido pode ser aceito. A hora mostrada na consulta de status indica quando o Caderninho verificou a conexão, não quando o banco atualizou os dados.
+
+Um saldo é a última observação recebida. Escolher outro mês no painel não transforma esse saldo em um fechamento histórico.
+
+## Entender o ciclo da importação
+
+O Caderninho admite uma importação por conexão a cada 24 horas, contadas do pedido aceito, mesmo se a tentativa falhar. Um pedido repetido reutiliza a execução ativa. Depois que a primeira importação da conexão for admitida explicitamente, a agenda diária roda às 06h de Brasília (09:00 UTC). Nem a agenda nem a próxima elegibilidade garantem dados novos do provedor.
+
+## Quando reautorizar
+
+Use Reautorizar banco quando o banco ou o Meu Pluggy pedir novo acesso. Em Pessoas, abra o ícone Ajustes de pessoas e credenciais. Localize o titular e expanda o banco afetado antes de escolher a ação. O titular correto precisa entrar no fluxo de autorização. Reautorizar tenta abrir novamente o acesso à origem; reativar um perfil pausado permite novas conexões e importações. Veja [Autorizações e sessões](/docs/bancos/autorizacoes).
+
+## Quando pausar
+
+Em Pessoas, abra o ícone Ajustes de pessoas e credenciais e desmarque Permitir novas conexões e importações no perfil se quiser impedir novas admissões por aquele perfil. Uma execução em andamento pode parar na próxima leitura. As páginas já publicadas permanecem disponíveis.
+
+Para voltar, marque a opção novamente e confira as credenciais e a próxima elegibilidade. Isso não reautoriza um banco cuja autorização expirou. Consultar o status é uma leitura e não inicia coleta.
+
+## Antes de pedir ajuda
+
+Anote o nome do banco, o estado mostrado, a data do último sucesso e a mensagem de erro. Confira se o banco aparece atualizado no Meu Pluggy. Você pode pedir ajuda ao administrador da instalação ou a alguém de confiança. Compartilhe a mensagem sem incluir chave de acesso, Client Secret, senhas ou dados financeiros privados. Siga [Problemas com bancos](/docs/bancos/problemas).

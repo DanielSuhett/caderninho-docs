@@ -1,0 +1,90 @@
+---
+title: "get_installments"
+description: "Planos manuais e candidatos derivados de metadados; agrupamento da origem é estimativa, não prova de pagamento."
+---
+
+Cartões, faturas e parcelas · Consultar · Consulta / prévia
+
+## Efeito da chamada
+
+Consulta ou simula sem gravar alterações financeiras nem iniciar uma importação.
+
+## Parâmetros
+
+| Campo | Obrigatório | Tipo | Uso |
+| --- | --- | --- | --- |
+| `personId` | Não | texto | Titular declarado. Obtenha seu ID em caderninho_status. |
+| `spaceId` | Não | texto | Espaço da instalação. Consulte get_spaces; o espaço inicial é personal. Padrão: "personal". |
+| `cardNumber` | Não | texto | Quatro últimos dígitos do cartão recebidos na identificação da origem. |
+| `include_completed` | Não | booleano | Inclui registros já concluídos na consulta. Padrão: false. |
+| `month` | Não | texto | Mês de referência no formato AAAA-MM. |
+
+Filtros compostos e limites estão no schema completo. Campos não listados são recusados.
+
+## Exemplo de chamada
+
+Substitua os IDs fictícios pelos da sua instalação, obtidos nas consultas indicadas nos parâmetros.
+
+```json
+
+{
+  "name": "get_installments",
+  "arguments": {}
+}
+
+```
+
+## Interpretar o resultado
+
+Preserve moeda, valores desconhecidos, cobertura e datas de referência informados na resposta. Uma leitura sem registros não comprova ausência de movimentos no banco. Para totais, use agregações de toda a seleção.
+
+O registro desta ferramenta não declara outputSchema. Consulte as regras de resposta no guia de contratos.
+
+## Contrato completo
+
+<details>
+
+<summary>Ver JSON Schema de entrada</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "personId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "spaceId": {
+      "default": "personal",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "cardNumber": {
+      "type": "string",
+      "pattern": "^\\d{4}$"
+    },
+    "include_completed": {
+      "default": false,
+      "type": "boolean"
+    },
+    "month": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}$"
+    }
+  },
+  "additionalProperties": false
+}
+
+```
+
+
+
+</details>
+
+[Voltar para Cartões, faturas e parcelas](/docs/assistentes/ferramentas/cartoes) · [Confirmações e contratos](/docs/assistentes/contratos)

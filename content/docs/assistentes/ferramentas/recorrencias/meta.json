@@ -1,0 +1,11 @@
+{
+  "title": "Recorrências cadastradas",
+  "defaultOpen": false,
+  "pages": [
+    "index",
+    "create_recurrence",
+    "deactivate_recurrence",
+    "get_recurrences",
+    "update_recurrence"
+  ]
+}

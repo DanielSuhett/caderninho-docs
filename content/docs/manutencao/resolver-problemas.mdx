@@ -1,0 +1,28 @@
+---
+title: Encontrar a próxima ação
+description: Escolha o problema observado e siga o guia correspondente.
+---
+
+## Não consigo entrar
+
+Confira o endereço da instalação e a chave ou senha usada em `/account`. A sessão do painel dura oito horas; uma senha nova ou uma versão nova do Worker também invalida sessões anteriores. Siga [Recuperar o acesso](/docs/manutencao/acesso) se perdeu a chave.
+
+## O banco não atualiza
+
+No Caderninho, abra o histórico do banco e confira a fase, o último sucesso e a próxima elegibilidade. No Meu Pluggy, confirme que o banco ainda está disponível para o titular. Se a autorização expirou, reautorize com a pessoa correta; não repita o pedido enquanto houver uma execução ativa ou janela de espera. Veja [Problemas com bancos](/docs/bancos/problemas).
+
+## O assistente não consulta
+
+Confira se o endereço termina em `/mcp` e pertence à sua instalação. Revise se o consentimento OAuth foi concluído e se a autorização ainda existe. Faça a primeira consulta de estado em [Conectar seu assistente](/docs/assistentes/conectar).
+
+## A ferramenta recusou uma alteração
+
+Confira o espaço, os IDs e a confirmação. Se a resposta indicar `RESTART_REQUIRED`, releia os dados e confirme novamente com a revisão atual. Se a conexão caiu após o envio, repita a mesma operação com os mesmos argumentos e a mesma chave de idempotência. Para uma ação diferente, gere outra chave. Veja [Confirmações e contratos](/docs/assistentes/contratos).
+
+## Os totais parecem diferentes
+
+Compare período, moeda, pessoa, grupo, pendentes e classificação. Saldo é uma observação patrimonial; despesas são movimentos elegíveis. Uma lista paginada não representa o total. Consulte [Visão geral](/docs/usar/visao-geral).
+
+## Preciso de investigação técnica
+
+Preserve o estado, a fase, o último sucesso e o código seguro. Um pedido aceito ou HTTP 200 não garante que a operação financeira terminou. A [referência de observabilidade](/docs/referencia/observability) orienta correlação e investigação sem expor segredos.

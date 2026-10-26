@@ -1,0 +1,190 @@
+---
+title: "update_recurrence"
+description: "Substituir configuração da recorrência, inclusive data final."
+---
+
+Recorrências cadastradas · Editar ou configurar · Escrita local
+
+## Efeito da chamada
+
+Esta ferramenta altera dados locais da instalação. Confirme a ação e o espaço com o proprietário antes de enviar confirmed: true e uma chave de idempotência. Ela não altera registros nem executa pagamentos no banco.
+
+## Parâmetros
+
+| Campo | Obrigatório | Tipo | Uso |
+| --- | --- | --- | --- |
+| `confirmed` | Sim | true | Deve ser true somente depois da confirmação explícita do proprietário. |
+| `idempotency_key` | Sim | texto | Chave única para esta solicitação. Reutilize apenas para repetir exatamente a mesma operação. |
+| `spaceId` | Sim | texto | Espaço da instalação. Consulte get_spaces; o espaço inicial é personal. |
+| `id` | Sim | texto | ID do registro devolvido por get_recurrences. |
+| `accountId` | Sim | texto | ID de conta devolvido por get_accounts. |
+| `active` | Não | booleano | Define se a recorrência participa do planejamento. Padrão: true. |
+| `amountMinor` | Sim | texto | Valor exato em unidades menores, como string. Em BRL, "10000" significa R$ 100,00. |
+| `categoryId` | Não | texto ou null | ID de categoria devolvido por get_categories no mesmo espaço. Padrão: null. |
+| `currency` | Sim | "BRL" / "USD" / "EUR" / "GBP" / "ARS" / "AUD" / "BHD" / "CAD" / "CHF" / "CLP" / "JPY" / "KWD" | Moeda da operação. Valores de moedas diferentes permanecem separados. |
+| `direction` | Sim | "DEBIT" / "CREDIT" | Direção DEBIT ou CREDIT. Ela não determina, sozinha, despesa ou receita. |
+| `endDate` | Não | texto ou null | Último dia da recorrência; null mantém sem encerramento definido. Padrão: null. |
+| `name` | Sim | texto | Nome de exibição do registro. |
+| `startDate` | Sim | texto | Primeiro dia da recorrência, em AAAA-MM-DD. |
+
+Filtros compostos e limites estão no schema completo. Campos não listados são recusados.
+
+## Exemplo de chamada
+
+Substitua os IDs fictícios pelos da sua instalação, obtidos nas consultas indicadas nos parâmetros.
+
+```json
+
+{
+  "name": "update_recurrence",
+  "arguments": {
+    "confirmed": true,
+    "idempotency_key": "docs:update_recurrence:01",
+    "spaceId": "personal",
+    "id": "id-exemplo",
+    "accountId": "accountId-exemplo",
+    "amountMinor": "10000",
+    "currency": "BRL",
+    "direction": "DEBIT",
+    "name": "Mercado de exemplo",
+    "startDate": "2026-10-01"
+  }
+}
+
+```
+
+## Interpretar o resultado
+
+Confira o resultado da chamada antes de dar a alteração como concluída. Se a rede falhar, repita somente os mesmos argumentos com a mesma chave. Atualize a leitura se a revisão estiver obsoleta antes de confirmar outra operação.
+
+O registro desta ferramenta não declara outputSchema. Consulte as regras de resposta no guia de contratos.
+
+## Contrato completo
+
+<details>
+
+<summary>Ver JSON Schema de entrada</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "confirmed": {
+      "type": "boolean",
+      "const": true
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "spaceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "accountId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "active": {
+      "default": true,
+      "type": "boolean"
+    },
+    "amountMinor": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d{0,29})$"
+    },
+    "categoryId": {
+      "default": null,
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "currency": {
+      "type": "string",
+      "enum": [
+        "BRL",
+        "USD",
+        "EUR",
+        "GBP",
+        "ARS",
+        "AUD",
+        "BHD",
+        "CAD",
+        "CHF",
+        "CLP",
+        "JPY",
+        "KWD"
+      ]
+    },
+    "direction": {
+      "type": "string",
+      "enum": [
+        "DEBIT",
+        "CREDIT"
+      ]
+    },
+    "endDate": {
+      "default": null,
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date",
+          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+    }
+  },
+  "required": [
+    "confirmed",
+    "idempotency_key",
+    "spaceId",
+    "id",
+    "accountId",
+    "amountMinor",
+    "currency",
+    "direction",
+    "name",
+    "startDate"
+  ],
+  "additionalProperties": false
+}
+
+```
+
+
+
+</details>
+
+[Voltar para Recorrências cadastradas](/docs/assistentes/ferramentas/recorrencias) · [Confirmações e contratos](/docs/assistentes/contratos)

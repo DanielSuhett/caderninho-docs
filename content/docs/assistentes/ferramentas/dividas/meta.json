@@ -1,0 +1,17 @@
+{
+  "title": "Dívidas e conciliação",
+  "defaultOpen": false,
+  "pages": [
+    "index",
+    "create_manual_loan",
+    "create_manual_loan_schedule",
+    "delete_manual_loan",
+    "get_loan_schedule",
+    "get_loans",
+    "reconcile_scheduled_payment",
+    "replace_manual_loan_schedule",
+    "set_loan_visibility",
+    "undo_scheduled_payment",
+    "update_manual_loan"
+  ]
+}

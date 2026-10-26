@@ -1,0 +1,40 @@
+---
+title: Perguntas para o dia a dia
+description: Comece por consultas claras, mantenha o recorte e revise propostas antes de alterar dados.
+---
+
+Cada assistente autorizado pode consultar os dados de todos os titulares desta instalação. O nome de uma pessoa no pedido filtra a consulta; não restringe o acesso concedido. Escolha o titular, o período e a moeda antes de comparar valores.
+
+## Conferir os bancos
+
+> Confira meus bancos no Caderninho. Informe o último sucesso de cada conexão e avise se alguma coleta está parcial.
+
+Ferramenta: [caderninho_status](/docs/assistentes/ferramentas/instalacao/caderninho_status). A consulta não inicia uma coleta.
+
+## Entender o mês
+
+> Mostre minhas despesas em BRL em outubro de 2026. Confirme qual titular considerar antes de consultar. Separe por categoria, informe os valores sem classificação e a data da última coleta.
+
+Ferramentas: [get_overview](/docs/assistentes/ferramentas/analises/get_overview) e [get_spending_by_category](/docs/assistentes/ferramentas/analises/get_spending_by_category). Para outra pergunta, mantenha os mesmos filtros no resumo e no detalhe.
+
+## Ver compras recentes
+
+> Mostre minhas cinco compras mais recentes. Abra as parcelas recebidas quando a compra for parcelada. Não calcule o total do mês a partir dessa lista.
+
+Ferramentas: [get_transactions](/docs/assistentes/ferramentas/transacoes/get_transactions) para ocorrências e [get_transaction_purchases](/docs/assistentes/ferramentas/transacoes/get_transaction_purchases) para compras agrupadas.
+
+## Investigar assinaturas
+
+> Procure candidatos a assinaturas no histórico. Mostre frequência, valores e evidências. Separe hipóteses de contratos confirmados.
+
+Ferramenta: [get_subscriptions](/docs/assistentes/ferramentas/analises/get_subscriptions). Uma análise truncada ou parcial não representa o histórico inteiro.
+
+## Revisar uma regra
+
+> Quero classificar compras desse mercado. Mostre uma proposta de regra e a prévia antes de salvar. Não aplique ao histórico até eu confirmar o período.
+
+Fluxo: consultar categorias e regras, simular com [preview_rule](/docs/assistentes/ferramentas/regras/preview_rule), revisar a proposta e só depois confirmar uma escrita. Salvar e reaplicar são decisões separadas.
+
+## Pedir uma alteração com clareza
+
+Informe exatamente os registros, a categoria ou grupo pretendido e o espaço. Peça ao assistente para apresentar o efeito antes de confirmar. Evite pedidos amplos como “arrume tudo” quando o resultado depende de escolhas pessoais.

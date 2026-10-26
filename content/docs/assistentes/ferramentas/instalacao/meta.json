@@ -1,0 +1,11 @@
+{
+  "title": "Instalação e dados da origem",
+  "defaultOpen": false,
+  "pages": [
+    "index",
+    "caderninho_status",
+    "caderninho_sync",
+    "caderninho_transactions",
+    "caderninho_aggregate"
+  ]
+}

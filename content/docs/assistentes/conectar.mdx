@@ -1,0 +1,60 @@
+---
+title: Conectar seu assistente
+description: Use o endereço MCP da sua instalação e autorize cada assistente por OAuth.
+---
+
+Uma autorização permite que o assistente consulte os dados de todos os titulares da instalação. Pedir um filtro como “somente Bruno” organiza uma consulta, mas não limita as permissões do assistente.
+
+Os resultados das ferramentas são enviados ao serviço do assistente escolhido. Leia as condições e a política de privacidade desse serviço antes de conectá-lo. Se houver dados de outros titulares, todos precisam estar de acordo com esse acesso. Confira também as [condições para reunir esses dados](/docs/bancos/autorizacoes#uso-pessoal-e-limites).
+
+No Caderninho, abra Consultar ou a área de conexão com assistentes. Copie o endereço MCP mostrado pela sua instalação.
+
+MCP é o protocolo que o assistente usa para chamar as ferramentas do Caderninho. OAuth é a autorização que você concede na tela do Caderninho para esse assistente acessar os dados, sem receber a chave do painel.
+
+```text
+https://SEU-ENDERECO-PRIVADO/mcp
+```
+
+Esse endereço aponta para a sua cópia do produto. O site público e estes guias não são um servidor MCP financeiro.
+
+## No ChatGPT
+
+1. Abra [Plugins do ChatGPT](https://chatgpt.com/plugins) na web.
+2. No botão +, escolha Add custom MCP server e dê o nome Caderninho.
+3. Em Connection, informe o endereço `/mcp` da sua instalação e configure autenticação OAuth.
+4. Revise o aviso apresentado, crie o plugin e instale-o na sua conta.
+5. Complete o consentimento do Caderninho. Em uma conversa, digite @ e selecione o plugin instalado antes da primeira consulta.
+
+Permissões do workspace podem limitar a criação de plugins. O caminho atual está na [documentação oficial da OpenAI](https://developers.openai.com/api/docs/guides/custom-mcp-server).
+
+## No Claude
+
+1. Abra Customize → Connectors.
+2. Escolha + Add → Add custom connector, use o nome Caderninho e informe sua URL `/mcp`.
+3. Continue e confira a autenticação OAuth detectada para o servidor.
+4. Adicione ou conecte o conector e complete o consentimento no Caderninho.
+5. Na conversa, habilite o conector pelo menu + → Connectors e faça uma consulta de estado.
+
+Em organizações, o administrador pode precisar cadastrar o conector primeiro. Confira o caminho aplicável à sua conta no [guia oficial do Claude](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp).
+
+## Conferir o consentimento
+
+Na página do Caderninho, confira o endereço da instalação e o assistente que está pedindo acesso. Use o login do painel para autorizar. As credenciais Client ID e Client Secret da Pluggy pertencem à coleta bancária e não devem preencher a configuração OAuth do assistente.
+
+## Conferir a primeira resposta
+
+Peça: “Consulte o Caderninho e mostre as pessoas, bancos e a data da última importação de cada conexão.”
+
+A resposta deve vir de [caderninho_status](/docs/assistentes/ferramentas/instalacao/caderninho_status), com os dados da sua instalação. Copiar o endereço ou abrir o consentimento ainda não comprova que uma chamada terminou.
+
+## Entender o acesso concedido
+
+Cada assistente recebe sua própria autorização OAuth, separada das autorizações bancárias e das concedidas a outros assistentes.
+
+A chave administrativa serve para entrar no painel. Ela não deve ser colada em prompts ou usada como uma API key de consulta.
+
+## Revogar
+
+No painel privado, use Revogar todos os assistentes para remover as autorizações. Uma nova conexão exigirá consentimento. A revogação não apaga informações já enviadas ao serviço do assistente. Consulte também [Autorizações e sessões](/docs/bancos/autorizacoes).
+
+[Explorar todas as ferramentas](/docs/assistentes/ferramentas) · [Exemplos de perguntas](/docs/assistentes/exemplos)

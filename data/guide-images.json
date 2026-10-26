@@ -1,0 +1,79 @@
+{
+  "cloudflare-projeto": {
+    "src": "/guides/2026-10/cloudflare-projeto.jpg", "width": 580, "height": 475,
+    "alt": "Formulário da Cloudflare com Git account, Project name e o nome de exemplo caderninho-exemplo.",
+    "caption": "Escolha sua conta Git e dê um nome à instalação. A Cloudflare criará uma cópia do repositório nessa conta.",
+    "source": "Captura da Cloudflare, 26/10/2026. Nome de exemplo.",
+    "sourceHref": "https://developers.cloudflare.com/workers/platform/deploy-buttons/"
+  },
+  "cloudflare-recursos": {
+    "src": "/guides/2026-10/cloudflare-recursos.jpg", "width": 580, "height": 475,
+    "alt": "Seleção de D1 database com Create new e campo Name your D1 Database preenchido como caderninho-exemplo.",
+    "caption": "A captura mostra + Create new no seletor D1. Repita a escolha no seletor KV e dê nomes próprios aos dois recursos.",
+    "source": "Captura da Cloudflare, 26/10/2026. Nome de exemplo.",
+    "sourceHref": "https://developers.cloudflare.com/workers/platform/deploy-buttons/"
+  },
+  "cloudflare-comandos": {
+    "src": "/guides/2026-10/cloudflare-comandos.jpg", "width": 580, "height": 475,
+    "alt": "Campos Build command com npm run build e Deploy command com npm run deploy no formulário da Cloudflare.",
+    "caption": "Confira Build command e Deploy command antes de iniciar. O comando de deploy do projeto também cuida da configuração inicial.",
+    "source": "Captura da Cloudflare, 26/10/2026.",
+    "sourceHref": "https://developers.cloudflare.com/workers/platform/deploy-buttons/"
+  },
+  "pluggy-conectores": {
+    "src": "https://docs.pluggy.ai/docs/images/dashboard/customization-connector-search.png", "width": 1440, "height": 900,
+    "alt": "Dashboard público de exemplo da Pluggy, em Customização e Conectores, com a busca MeuPluggy e o conector direto na categoria Pessoal.",
+    "caption": "Se usa seleção personalizada, procure MeuPluggy em Customização, Conectores. Ele aparece entre os conectores diretos da categoria Pessoal.",
+    "source": "Imagem pública da documentação da Pluggy, consultada em 26/10/2026.",
+    "sourceHref": "https://docs.pluggy.ai/pt/docs/guides/dashboard-connectors"
+  },
+  "pluggy-meupluggy": {
+    "src": "https://docs.pluggy.ai/docs/images/dashboard/meupluggy-connector.png", "width": 1440, "height": 900,
+    "alt": "Widget Pluggy Connect com a busca MeuPluggy e o resultado MeuPluggy na aba Pessoal.",
+    "caption": "Na autorização, escolha MeuPluggy. A imagem oficial mostra o widget aberto pelo Dashboard; no Caderninho, ele é aberto durante a conexão do banco.",
+    "source": "Imagem pública da documentação da Pluggy, consultada em 26/10/2026.",
+    "sourceHref": "https://docs.pluggy.ai/pt/docs/guides/meu-pluggy-personal-use"
+  },
+  "caderninho-chave": {
+    "src": "/guides/2026-10/caderninho-chave.jpg", "width": 1265, "height": 712,
+    "alt": "Primeiro acesso do Caderninho com o endereço da instalação, chave abreviada, botão de copiar e Começar.",
+    "caption": "Abra o link privado do log do deploy, copie a chave para seu gerenciador de senhas e escolha Começar.",
+    "source": "Caderninho local, 26/10/2026. Endereço e chave fictícios.",
+    "sourceHref": "/docs/comecar/primeiro-acesso"
+  },
+  "caderninho-pessoa": {
+    "src": "/guides/2026-10/caderninho-pessoa.jpg", "width": 960, "height": 580,
+    "alt": "Cadastro inicial no Caderninho com o nome Eu, foto opcional e botão Salvar pessoa.",
+    "caption": "Preencha o nome e escolha Salvar pessoa. A foto é opcional.",
+    "source": "Caderninho local, 26/10/2026. Dados fictícios.",
+    "sourceHref": "/docs/comecar/primeiro-acesso"
+  },
+  "caderninho-credenciais": {
+    "src": "/guides/2026-10/caderninho-credenciais.jpg", "width": 960, "height": 580,
+    "alt": "Tela Seu acesso Pluggy no Caderninho, com campos vazios Client ID e Client Secret e botão Validar e conectar banco.",
+    "caption": "Use o Client ID e o Client Secret da mesma aplicação Pluggy. A chave do painel e a senha bancária não entram nestes campos.",
+    "source": "Caderninho local, 26/10/2026. Dados fictícios, campos sem credenciais.",
+    "sourceHref": "/docs/comecar/preparar-pluggy"
+  },
+  "caderninho-bancos": {
+    "src": "/guides/2026-10/caderninho-bancos.jpg", "width": 1280, "height": 720,
+    "alt": "Pessoas no Caderninho com Ana, dois bancos de exemplo ainda não importados e Concluir pessoas e importar.",
+    "caption": "Confira o titular e os bancos autorizados. A seta no topo, Concluir pessoas e importar, solicita a primeira coleta.",
+    "source": "Caderninho local, 26/10/2026. Dados fictícios.",
+    "sourceHref": "/docs/comecar/primeiro-acesso"
+  },
+  "caderninho-outra-pessoa": {
+    "src": "/guides/2026-10/caderninho-outra-pessoa.jpg", "width": 700, "height": 500,
+    "alt": "Tela Outra pessoa no Caderninho com nome vazio, foto opcional e botão Salvar pessoa.",
+    "caption": "No cadastro de outra pessoa, preencha o nome e salve. A autorização dos bancos será feita depois pelo próprio titular.",
+    "source": "Caderninho local, 26/10/2026. Dados fictícios.",
+    "sourceHref": "/docs/bancos/adicionar-pessoa"
+  },
+  "caderninho-importacao": {
+    "src": "/guides/2026-10/caderninho-importacao.jpg", "width": 960, "height": 580,
+    "alt": "Importar no Caderninho com um banco de exemplo concluído, outro importando transações e aviso de histórico parcial.",
+    "caption": "Cada banco avança separadamente. Neste exemplo preparado, um terminou e o outro ainda importa transações; o histórico recebido já pode ser consultado.",
+    "source": "Caderninho local, 26/10/2026. Dados e estados de importação fictícios.",
+    "sourceHref": "/docs/bancos/importacoes"
+  }
+}

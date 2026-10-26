@@ -1,0 +1,445 @@
+---
+title: "get_subscriptions"
+description: "Identificar candidatos a assinaturas e cobranças recorrentes no histórico efetivo, com frequência, valores exatos e evidências. Exclui pendentes, futuros, transferências classificadas e parcelas identificadas. Padrão: últimos 12 meses e 3 ocorrências. Não confirma contratos nem cria recorrências; partial/truncated indicam análise incompleta."
+---
+
+Análises e assinaturas · Analisar · Consulta / prévia
+
+## Efeito da chamada
+
+Consulta ou simula sem gravar alterações financeiras nem iniciar uma importação.
+
+## Parâmetros
+
+| Campo | Obrigatório | Tipo | Uso |
+| --- | --- | --- | --- |
+| `personId` | Não | texto | Titular declarado. Obtenha seu ID em caderninho_status. |
+| `spaceId` | Não | texto | Espaço da instalação. Consulte get_spaces; o espaço inicial é personal. Padrão: "personal". |
+| `accountId` | Não | texto | ID de conta devolvido por get_accounts. |
+| `currency` | Não | "BRL" / "USD" / "EUR" / "GBP" / "ARS" / "AUD" / "BHD" / "CAD" / "CHF" / "CLP" / "JPY" / "KWD" | Moeda da operação. Valores de moedas diferentes permanecem separados. |
+| `from` | Não | texto | Primeiro dia incluído na seleção, em AAAA-MM-DD. |
+| `limit` | Não | inteiro | Máximo de registros ou candidatos devolvidos. Confira paginação e cobertura na resposta. Padrão: 50. Máximo: 100. Mínimo: 1. |
+| `minOccurrences` | Não | inteiro | Quantidade mínima de ocorrências para considerar um candidato recorrente. Padrão: 3. Máximo: 12. Mínimo: 2. |
+| `to` | Não | texto | Último dia incluído na seleção, em AAAA-MM-DD. |
+
+Filtros compostos e limites estão no schema completo. Campos não listados são recusados.
+
+## Exemplo de chamada
+
+Substitua os IDs fictícios pelos da sua instalação, obtidos nas consultas indicadas nos parâmetros.
+
+```json
+
+{
+  "name": "get_subscriptions",
+  "arguments": {
+    "from": "2025-11-01",
+    "to": "2026-10-31",
+    "limit": 5
+  }
+}
+
+```
+
+## Interpretar o resultado
+
+Preserve moeda, valores desconhecidos, cobertura e datas de referência informados na resposta. Uma leitura sem registros não comprova ausência de movimentos no banco. Para totais, use agregações de toda a seleção.
+
+O JSON Schema de saída está em Contrato completo.
+
+## Contrato completo
+
+<details>
+
+<summary>Ver JSON Schema de entrada</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "personId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "spaceId": {
+      "default": "personal",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "accountId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "currency": {
+      "type": "string",
+      "enum": [
+        "BRL",
+        "USD",
+        "EUR",
+        "GBP",
+        "ARS",
+        "AUD",
+        "BHD",
+        "CAD",
+        "CHF",
+        "CLP",
+        "JPY",
+        "KWD"
+      ]
+    },
+    "from": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+    },
+    "limit": {
+      "default": 50,
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+    },
+    "minOccurrences": {
+      "default": 3,
+      "type": "integer",
+      "minimum": 2,
+      "maximum": 12
+    },
+    "to": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+    }
+  },
+  "additionalProperties": false
+}
+
+```
+
+
+
+</details>
+
+<details>
+
+<summary>Ver JSON Schema de saída</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "connectionIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "imported",
+            "local_only",
+            "empty"
+          ]
+        },
+        "oldestLastSuccessAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "partial": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "connectionIds",
+        "kind",
+        "oldestLastSuccessAt",
+        "partial"
+      ],
+      "additionalProperties": false
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "estimated": {
+          "type": "boolean",
+          "const": true
+        },
+        "matchedCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "accountId": {
+                "type": "string"
+              },
+              "amountMinor": {
+                "type": "string",
+                "pattern": "^-?\\d+$"
+              },
+              "cadence": {
+                "type": "string",
+                "enum": [
+                  "monthly",
+                  "quarterly",
+                  "weekly",
+                  "yearly"
+                ]
+              },
+              "cardNumber": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "currency": {
+                "type": "string"
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "amountMinor": {
+                      "type": "string",
+                      "pattern": "^-?\\d+$"
+                    },
+                    "date": {
+                      "type": "string",
+                      "format": "date",
+                      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+                    },
+                    "transactionId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "amountMinor",
+                    "date",
+                    "transactionId"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "firstSeen": {
+                "type": "string",
+                "format": "date",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+              },
+              "lastSeen": {
+                "type": "string",
+                "format": "date",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+              },
+              "maxAmountMinor": {
+                "type": "string",
+                "pattern": "^-?\\d+$"
+              },
+              "minAmountMinor": {
+                "type": "string",
+                "pattern": "^-?\\d+$"
+              },
+              "name": {
+                "type": "string"
+              },
+              "nextExpectedDate": {
+                "type": "string",
+                "format": "date",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+              },
+              "observedTotalMinor": {
+                "type": "string",
+                "pattern": "^-?\\d+$"
+              },
+              "occurrences": {
+                "type": "integer",
+                "minimum": 2,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "accountId",
+              "amountMinor",
+              "cadence",
+              "cardNumber",
+              "currency",
+              "evidence",
+              "firstSeen",
+              "lastSeen",
+              "maxAmountMinor",
+              "minAmountMinor",
+              "name",
+              "nextExpectedDate",
+              "observedTotalMinor",
+              "occurrences"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "referenceDay": {
+          "type": "string",
+          "format": "date",
+          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+        },
+        "scanLimit": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "scannedCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "selection": {
+          "type": "object",
+          "properties": {
+            "accountId": {
+              "type": "string"
+            },
+            "cardNumber": {
+              "type": "string"
+            },
+            "categoryId": {
+              "type": "string"
+            },
+            "currency": {
+              "type": "string"
+            },
+            "direction": {
+              "type": "string",
+              "enum": [
+                "DEBIT",
+                "CREDIT"
+              ]
+            },
+            "from": {
+              "type": "string",
+              "format": "date",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+            },
+            "include_ignored": {
+              "type": "boolean"
+            },
+            "personId": {
+              "type": "string"
+            },
+            "spaceId": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "PENDING",
+                "POSTED"
+              ]
+            },
+            "tagId": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            },
+            "to": {
+              "type": "string",
+              "format": "date",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+            }
+          },
+          "required": [
+            "from",
+            "include_ignored",
+            "spaceId",
+            "to"
+          ],
+          "additionalProperties": {}
+        },
+        "truncated": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "estimated",
+        "matchedCount",
+        "records",
+        "referenceDay",
+        "scanLimit",
+        "scannedCount",
+        "selection",
+        "truncated"
+      ],
+      "additionalProperties": false
+    },
+    "oldestLastSuccessAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "partial": {
+      "type": "boolean"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "personId": {
+          "type": "string"
+        },
+        "spaceId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "spaceId"
+      ],
+      "additionalProperties": false
+    },
+    "view": {
+      "type": "string",
+      "const": "effective"
+    }
+  },
+  "required": [
+    "coverage",
+    "data",
+    "oldestLastSuccessAt",
+    "partial",
+    "revision",
+    "scope",
+    "view"
+  ],
+  "additionalProperties": {}
+}
+
+```
+
+
+
+</details>
+
+[Voltar para Análises e assinaturas](/docs/assistentes/ferramentas/analises) · [Confirmações e contratos](/docs/assistentes/contratos)

@@ -1,0 +1,13 @@
+{
+  "title": "Orçamento e projeções",
+  "defaultOpen": false,
+  "pages": [
+    "index",
+    "get_budget",
+    "get_projection",
+    "get_upcoming_payments",
+    "remove_category_limit",
+    "set_budget",
+    "set_category_limit"
+  ]
+}

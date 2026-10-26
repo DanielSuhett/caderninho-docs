@@ -1,0 +1,34 @@
+---
+title: Consultar e organizar transações
+description: Filtre compras, leia os detalhes e corrija a categoria sem alterar o registro bancário.
+---
+
+Para encontrar uma compra, abra Transações e busque parte da descrição. Use Filtros para escolher período, conta, pessoa e grupo. Quando você muda os filtros, a lista volta à primeira página da seleção.
+
+## Abrir uma compra
+
+Selecione a linha ou a descrição da compra. O detalhe reúne valor, moeda, titular, categoria e as informações recebidas do banco.
+
+Compras parceladas podem aparecer agrupadas. O valor informado continua sendo o de uma parcela conhecida. O detalhe mostra as parcelas recebidas e aponta ausências, sem criar lançamentos que o banco não enviou.
+
+## Resolver itens sem categoria
+
+Abra a aba Sem categoria para revisar o que falta classificar. A quantidade considera todos os resultados dos filtros atuais. Uma compra agrupada aparece nessa aba quando pelo menos uma de suas parcelas recebidas está sem categoria.
+
+Use a caneta ou Categorizar para escolher a categoria. Em uma compra agrupada, confira a seleção apresentada: a alteração pode abranger outras parcelas já recebidas daquela compra.
+
+## Preservar a origem
+
+Ao corrigir uma categoria, você muda como o Caderninho organiza a compra. O registro recebido do banco permanece preservado, e uma nova importação mantém a sua escolha.
+
+Pelo assistente, outras edições também exigem confirmação. A exclusão de uma transação local preserva o registro bancário de origem para auditoria e reimportação. Confira o efeito descrito na ferramenta antes de confirmar.
+
+## Criar uma regra a partir do exemplo
+
+Se a mesma correção se repetir, use Criar regra no detalhe. Confira descrição, conta, moeda e categoria na prévia antes de salvar. A regra passa a orientar próximas importações; alterar compras antigas exige uma reaplicação explícita.
+
+## Pedir ajuda à IA
+
+Resolva com sua IA prepara um pedido com o contexto da tela para você copiar. Leia o texto antes de enviá-lo: compartilhar esse contexto com o assistente depende de uma ação sua.
+
+Para consultas técnicas, [get_transactions](/docs/assistentes/ferramentas/transacoes/get_transactions) retorna ocorrências, e [get_transaction_purchases](/docs/assistentes/ferramentas/transacoes/get_transaction_purchases) retorna compras agrupadas antes da paginação.

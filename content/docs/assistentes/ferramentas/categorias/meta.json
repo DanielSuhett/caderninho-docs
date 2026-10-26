@@ -1,0 +1,21 @@
+{
+  "title": "Categorias e etiquetas",
+  "defaultOpen": false,
+  "pages": [
+    "index",
+    "attach_transaction_tags",
+    "create_category",
+    "create_category_group",
+    "create_tag",
+    "delete_category",
+    "delete_category_group",
+    "delete_tag",
+    "get_categories",
+    "get_category_groups",
+    "get_tags",
+    "remove_transaction_tags",
+    "update_category",
+    "update_category_group",
+    "update_tag"
+  ]
+}

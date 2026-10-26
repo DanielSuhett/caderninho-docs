@@ -1,0 +1,32 @@
+---
+title: Atualizar a instalação
+description: Confira compatibilidade e preserve os recursos antes de publicar uma nova versão do produto.
+---
+
+O botão de instalação usa o código publicado no GitHub. Alterações presentes apenas em uma cópia local não chegam à instalação por esse botão.
+
+## Antes de atualizar
+
+1. Abra o checkout do repositório ligado à instalação e confira se ele contém a versão que deseja publicar. Confira também o `name` do Worker e os IDs dos recursos D1 e KV na configuração do Wrangler. O deploy precisa apontar para os mesmos recursos da instalação.
+2. Revise as mudanças de schema e preserve D1, KV, secrets e a configuração conforme o [guia de backup](/docs/manutencao/backup).
+3. Com Wrangler autenticado na conta da instalação, execute `npm ci` e depois `npm run deploy` na raiz. O comando constrói o Worker, aplica migrações D1 remotas e depois publica o Worker.
+
+A migração D1 ocorre antes da publicação do Worker e não é desfeita se o deploy falhar. Confirme a compatibilidade do schema antes de executar o comando.
+
+O projeto está em pré-produção. O schema inicial atual atende bancos novos e não oferece um caminho automático de atualização para todos os modelos experimentais anteriores. Avalie o estado existente antes de definir uma migração.
+
+## Acesso e credenciais
+
+O script confere os secrets administrativos antes de migrar. Se encontrar `ADMIN_ACCESS_HASH` ou `ADMIN_PASSWORD`, publica sem substituí-los; erro de permissão ou resposta inválida interrompe o processo. A implantação usa os recursos indicados pelo checkout, por isso confira os bindings antes do comando.
+
+Uma nova versão do Worker invalida sessões anteriores do painel. O OAuth dos assistentes continua autorizado quando o deploy mantém o mesmo KV. Para remover essas autorizações, use a ação de revogação no painel.
+
+## Conferir depois
+
+Abra o painel, confira pessoas e bancos, consulte o histórico e verifique o último sucesso das conexões. Faça uma consulta MCP para conferir o assistente. O sucesso de um build ou deploy não substitui essa verificação.
+
+## Site de guias e instalação financeira
+
+Estes guias são uma aplicação pública separada. Atualizar sua documentação não deve publicar o Worker financeiro ou aplicar migrações na sua instalação.
+
+[Processo técnico de contribuição](/docs/referencia/contribuir) · [Referência do onboarding](/docs/referencia/onboarding)

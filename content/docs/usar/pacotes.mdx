@@ -1,0 +1,33 @@
+---
+title: Importar um pacote de regras
+description: Confira o JSON, resolva as categorias e confirme a importação sem reaplicar o histórico automaticamente.
+---
+
+Um pacote reúne regras que você pode revisar e acrescentar ao Caderninho. Em Regras, escolha Importar regras e selecione o arquivo JSON. A prévia mostra o que será importado antes de gravar.
+
+## Revisar e importar
+
+1. Selecione o JSON do pacote.
+2. Confira regras, categorias, duplicatas e conflitos apresentados na prévia.
+3. Resolva os mapeamentos ambíguos e atualize a prévia.
+4. Confirme a importação no espaço correto.
+
+Cancelar ou voltar mantém o estado anterior. Se as regras ou categorias mudarem enquanto você revisa o pacote, atualize a prévia antes de confirmar. Assim, a confirmação continua correspondendo ao que você leu.
+
+## Exemplo Brasil
+
+O [JSON Brasil de exemplo](/examples/brasil.json) pode ajudar a entender o formato. Ele não é instalado automaticamente e não garante reconhecer descritores de todos os bancos.
+
+Confira especialmente descrições amplas ou estabelecimentos que atendem vários ramos. Revise o que corresponde ao seu histórico antes de aplicar.
+
+## Reimportar com segurança
+
+Regras idênticas não são duplicadas. Regras pessoais e edições locais são preservadas. Uma regra pausada ou editada não deve ser substituída silenciosamente por outra importação.
+
+O pacote acrescenta regras; ele não substitui um conjunto instalado inteiro. A importação também não reaplica o histórico.
+
+## Limites e formato
+
+O contrato aceita até 100 regras, 50 categorias e 64 KiB por arquivo. Categorias precisam estar declaradas no pacote e ser resolvidas no espaço da instalação.
+
+[Referência completa do formato](/docs/referencia/rule-packs) · [preview_rule_import](/docs/assistentes/ferramentas/regras/preview_rule_import) · [import_rules](/docs/assistentes/ferramentas/regras/import_rules)

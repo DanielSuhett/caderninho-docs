@@ -1,0 +1,73 @@
+---
+title: "caderninho_sync"
+description: "Importar contas e transações da origem. Retorna execução existente ou admissão/cooldown por conexão. Não exige coordenar páginas."
+---
+
+Instalação e dados da origem · Sincronizar · Importação
+
+## Efeito da chamada
+
+Esta ferramenta solicita importação. Um pedido repetido pode reutilizar a execução existente; a admissão respeita a janela de 24 horas de cada conexão. Acompanhe por caderninho_status.
+
+## Parâmetros
+
+| Campo | Obrigatório | Tipo | Uso |
+| --- | --- | --- | --- |
+| `connectionIds` | Não | lista de texto | IDs de conexão devolvidos por caderninho_status. Uma conexão pode conter várias contas. Até 200 itens. |
+
+Filtros compostos e limites estão no schema completo. Campos não listados são recusados.
+
+## Exemplo de chamada
+
+Substitua os IDs fictícios pelos da sua instalação, obtidos nas consultas indicadas nos parâmetros.
+
+```json
+
+{
+  "name": "caderninho_sync",
+  "arguments": {}
+}
+
+```
+
+## Interpretar o resultado
+
+A aceitação do pedido confirma que ele pode ser processado. Para acompanhar a importação, confira estado, fase, parcialidade e último sucesso de cada conexão.
+
+O registro desta ferramenta não declara outputSchema. Consulte as regras de resposta no guia de contratos.
+
+## Contrato completo
+
+<details>
+
+<summary>Ver JSON Schema de entrada</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "connectionIds": {
+      "minItems": 1,
+      "maxItems": 200,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 160
+      }
+    }
+  },
+  "additionalProperties": false
+}
+
+```
+
+
+
+</details>
+
+[Voltar para Instalação e dados da origem](/docs/assistentes/ferramentas/instalacao) · [Confirmações e contratos](/docs/assistentes/contratos)

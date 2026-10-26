@@ -1,0 +1,104 @@
+---
+title: "move_connection"
+description: "Mover conta ou todas as contas da conexão entre espaços pessoais."
+---
+
+Contas e organização · Mover · Escrita local
+
+## Efeito da chamada
+
+Move para targetSpaceId as contas da conexão que pertencem a spaceId, além dos investimentos e empréstimos vinculados. As edições locais das contas mudam de espaço; categorias, tags e vínculos de metas dessas edições são removidos. Recorrências e parcelas manuais também mudam de espaço, e suas categorias são removidas. Vínculos de metas com contas e investimentos movidos são desfeitos. Esta reorganização não altera dados no banco. Confirme o espaço de origem e o destino antes de enviar confirmed: true e uma chave de idempotência.
+
+## Parâmetros
+
+| Campo | Obrigatório | Tipo | Uso |
+| --- | --- | --- | --- |
+| `confirmed` | Sim | true | Deve ser true somente depois da confirmação explícita do proprietário. |
+| `idempotency_key` | Sim | texto | Chave única para esta solicitação. Reutilize apenas para repetir exatamente a mesma operação. |
+| `spaceId` | Sim | texto | Espaço da instalação. Consulte get_spaces; o espaço inicial é personal. |
+| `connectionId` | Sim | texto | ID de conexão devolvido por caderninho_status. |
+| `targetSpaceId` | Sim | texto | ID de outro espaço existente, obtido em get_spaces. Substitua familia por um ID diferente de spaceId. |
+
+Filtros compostos e limites estão no schema completo. Campos não listados são recusados.
+
+## Exemplo de chamada
+
+Substitua os IDs fictícios pelos da sua instalação, obtidos nas consultas indicadas nos parâmetros.
+
+```json
+
+{
+  "name": "move_connection",
+  "arguments": {
+    "confirmed": true,
+    "idempotency_key": "docs:move_connection:01",
+    "spaceId": "personal",
+    "connectionId": "connectionId-exemplo",
+    "targetSpaceId": "familia"
+  }
+}
+
+```
+
+## Interpretar o resultado
+
+Confira o resultado da chamada antes de dar a alteração como concluída. Se a rede falhar, repita somente os mesmos argumentos com a mesma chave. Atualize a leitura se a revisão estiver obsoleta antes de confirmar outra operação.
+
+O registro desta ferramenta não declara outputSchema. Consulte as regras de resposta no guia de contratos.
+
+## Contrato completo
+
+<details>
+
+<summary>Ver JSON Schema de entrada</summary>
+
+
+
+```json
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "confirmed": {
+      "type": "boolean",
+      "const": true
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "spaceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "connectionId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "targetSpaceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    }
+  },
+  "required": [
+    "confirmed",
+    "idempotency_key",
+    "spaceId",
+    "connectionId",
+    "targetSpaceId"
+  ],
+  "additionalProperties": false
+}
+
+```
+
+
+
+</details>
+
+[Voltar para Contas e organização](/docs/assistentes/ferramentas/contas) · [Confirmações e contratos](/docs/assistentes/contratos)

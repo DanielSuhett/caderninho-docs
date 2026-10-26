@@ -1,0 +1,1007 @@
+{
+  "categories": [
+    {
+      "id": "instalacao",
+      "title": "Instalação e dados da origem",
+      "description": "Conferir conexões, pedir importação e consultar os registros bancários preservados."
+    },
+    {
+      "id": "contas",
+      "title": "Contas e organização",
+      "description": "Consultar contas, ajustar sua apresentação e organizar os espaços da instalação."
+    },
+    {
+      "id": "transacoes",
+      "title": "Transações e compras",
+      "description": "Consultar compras, registrar lançamentos e editar sua apresentação local."
+    },
+    {
+      "id": "analises",
+      "title": "Análises e assinaturas",
+      "description": "Entender gastos, comparar períodos e investigar candidatos a cobranças recorrentes."
+    },
+    {
+      "id": "cartoes",
+      "title": "Cartões, faturas e parcelas",
+      "description": "Acompanhar gastos, faturas, limites e parcelas recebidas ou cadastradas."
+    },
+    {
+      "id": "categorias",
+      "title": "Categorias e etiquetas",
+      "description": "Organizar categorias, agrupadores e etiquetas usadas nas transações."
+    },
+    {
+      "id": "regras",
+      "title": "Regras de classificação",
+      "description": "Criar e simular regras, importar pacotes e reaplicar ao histórico após revisão."
+    },
+    {
+      "id": "orcamento",
+      "title": "Orçamento e projeções",
+      "description": "Definir limites, acompanhar o ciclo e consultar compromissos e projeções."
+    },
+    {
+      "id": "recorrencias",
+      "title": "Recorrências cadastradas",
+      "description": "Planejar contas fixas e receitas mensais sem inventar lançamentos bancários."
+    },
+    {
+      "id": "investimentos",
+      "title": "Investimentos",
+      "description": "Consultar a carteira e manter posições manuais e sua inclusão no patrimônio."
+    },
+    {
+      "id": "dividas",
+      "title": "Dívidas e conciliação",
+      "description": "Acompanhar empréstimos, cronogramas SAC e conciliar parcelas com registros existentes."
+    },
+    {
+      "id": "metas",
+      "title": "Metas e contribuições",
+      "description": "Planejar objetivos, acompanhar aportes e vincular patrimônio sem dupla contagem."
+    },
+    {
+      "id": "avisos",
+      "title": "Preferências de avisos",
+      "description": "Consultar e guardar preferências; o registro não configura um serviço de entrega."
+    }
+  ],
+  "tools": [
+    {
+      "name": "caderninho_status",
+      "description": "Estado da instalação, contas e importações. Informa parcialidade e referência temporal; nunca inicia coleta.",
+      "category": "instalacao",
+      "categoryTitle": "Instalação e dados da origem",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/instalacao/caderninho_status"
+    },
+    {
+      "name": "caderninho_sync",
+      "description": "Importar contas e transações da origem. Retorna execução existente ou admissão/cooldown por conexão. Não exige coordenar páginas.",
+      "category": "instalacao",
+      "categoryTitle": "Instalação e dados da origem",
+      "function": "Sincronizar",
+      "operation": "sync",
+      "url": "/docs/assistentes/ferramentas/instalacao/caderninho_sync"
+    },
+    {
+      "name": "caderninho_transactions",
+      "description": "Consultar histórico local por campos conhecidos. Cursor exige mesmo estado da seleção; categoria e descrição vêm da origem.",
+      "category": "instalacao",
+      "categoryTitle": "Instalação e dados da origem",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/instalacao/caderninho_transactions"
+    },
+    {
+      "name": "caderninho_aggregate",
+      "description": "Totais exatos por moeda sobre todo o universo filtrado. Débito não equivale a gasto. Informe parcialidade, desconhecidos e referência temporal.",
+      "category": "instalacao",
+      "categoryTitle": "Instalação e dados da origem",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/instalacao/caderninho_aggregate"
+    },
+    {
+      "name": "add_goal_contribution",
+      "description": "Registrar contribuição; transação existente não é contada novamente.",
+      "category": "metas",
+      "categoryTitle": "Metas e contribuições",
+      "function": "Vincular ou registrar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/metas/add_goal_contribution"
+    },
+    {
+      "name": "analyze_categories",
+      "description": "Analisar despesas categorizadas e itens sem categoria.",
+      "category": "analises",
+      "categoryTitle": "Análises e assinaturas",
+      "function": "Analisar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/analises/analyze_categories"
+    },
+    {
+      "name": "apply_rules",
+      "description": "Aplicar regras sincronicamente a até 500 transações; operação atômica.",
+      "category": "regras",
+      "categoryTitle": "Regras de classificação",
+      "function": "Aplicar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/regras/apply_rules"
+    },
+    {
+      "name": "attach_transaction_tags",
+      "description": "Alterar tags das transações selecionadas.",
+      "category": "categorias",
+      "categoryTitle": "Categorias e etiquetas",
+      "function": "Vincular ou registrar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/categorias/attach_transaction_tags"
+    },
+    {
+      "name": "batch_delete_transactions",
+      "description": "Excluir apresentação local preservando origem; confirmação e repetição idempotente.",
+      "category": "transacoes",
+      "categoryTitle": "Transações e compras",
+      "function": "Excluir",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/transacoes/batch_delete_transactions"
+    },
+    {
+      "name": "batch_edit_transactions",
+      "description": "Editar atomicamente até 500 transações selecionadas.",
+      "category": "transacoes",
+      "categoryTitle": "Transações e compras",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/transacoes/batch_edit_transactions"
+    },
+    {
+      "name": "complete_goal",
+      "description": "Concluir meta manualmente.",
+      "category": "metas",
+      "categoryTitle": "Metas e contribuições",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/metas/complete_goal"
+    },
+    {
+      "name": "complete_installment",
+      "description": "Alterar conclusão manual sem inventar pagamentos.",
+      "category": "cartoes",
+      "categoryTitle": "Cartões, faturas e parcelas",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/cartoes/complete_installment"
+    },
+    {
+      "name": "create_category",
+      "description": "Criar categoria personalizada.",
+      "category": "categorias",
+      "categoryTitle": "Categorias e etiquetas",
+      "function": "Criar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/categorias/create_category"
+    },
+    {
+      "name": "create_category_group",
+      "description": "Criar agrupador de categorias com nome, ícone e cor.",
+      "category": "categorias",
+      "categoryTitle": "Categorias e etiquetas",
+      "function": "Criar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/categorias/create_category_group"
+    },
+    {
+      "name": "create_goal",
+      "description": "Criar meta financeira.",
+      "category": "metas",
+      "categoryTitle": "Metas e contribuições",
+      "function": "Criar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/metas/create_goal"
+    },
+    {
+      "name": "create_manual_account",
+      "description": "Criar conta ou cartão manual.",
+      "category": "contas",
+      "categoryTitle": "Contas e organização",
+      "function": "Criar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/contas/create_manual_account"
+    },
+    {
+      "name": "create_manual_installment",
+      "description": "Criar plano e recorrência de parcelas sem gerar transações futuras.",
+      "category": "cartoes",
+      "categoryTitle": "Cartões, faturas e parcelas",
+      "function": "Criar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/cartoes/create_manual_installment"
+    },
+    {
+      "name": "create_manual_investment",
+      "description": "Criar investimento manual.",
+      "category": "investimentos",
+      "categoryTitle": "Investimentos",
+      "function": "Criar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/investimentos/create_manual_investment"
+    },
+    {
+      "name": "create_manual_loan",
+      "description": "Cadastrar dívida manual sem efetuar contratação bancária.",
+      "category": "dividas",
+      "categoryTitle": "Dívidas e conciliação",
+      "function": "Criar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/dividas/create_manual_loan"
+    },
+    {
+      "name": "create_manual_loan_schedule",
+      "description": "Criar cronograma SAC exato; juros mensais em pontos-base e arredondamento half-up.",
+      "category": "dividas",
+      "categoryTitle": "Dívidas e conciliação",
+      "function": "Criar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/dividas/create_manual_loan_schedule"
+    },
+    {
+      "name": "create_recurrence",
+      "description": "Criar conta fixa ou receita mensal projetada.",
+      "category": "recorrencias",
+      "categoryTitle": "Recorrências cadastradas",
+      "function": "Criar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/recorrencias/create_recurrence"
+    },
+    {
+      "name": "create_rule",
+      "description": "Criar regra textual determinística de categorização.",
+      "category": "regras",
+      "categoryTitle": "Regras de classificação",
+      "function": "Criar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/regras/create_rule"
+    },
+    {
+      "name": "create_space",
+      "description": "Criar espaço local da mesma pessoa; não cria usuários nem permissões.",
+      "category": "contas",
+      "categoryTitle": "Contas e organização",
+      "function": "Criar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/contas/create_space"
+    },
+    {
+      "name": "create_tag",
+      "description": "Criar tag.",
+      "category": "categorias",
+      "categoryTitle": "Categorias e etiquetas",
+      "function": "Criar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/categorias/create_tag"
+    },
+    {
+      "name": "create_transaction",
+      "description": "Lançar receita ou despesa em conta manual.",
+      "category": "transacoes",
+      "categoryTitle": "Transações e compras",
+      "function": "Criar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/transacoes/create_transaction"
+    },
+    {
+      "name": "deactivate_recurrence",
+      "description": "Desativar projeções futuras.",
+      "category": "recorrencias",
+      "categoryTitle": "Recorrências cadastradas",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/recorrencias/deactivate_recurrence"
+    },
+    {
+      "name": "delete_card",
+      "description": "Excluir apresentação de cartão adicional, preservando histórico.",
+      "category": "cartoes",
+      "categoryTitle": "Cartões, faturas e parcelas",
+      "function": "Excluir",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/cartoes/delete_card"
+    },
+    {
+      "name": "delete_category",
+      "description": "Excluir categoria personalizada e reatribuir referências à categoria de sistema do mesmo tipo.",
+      "category": "categorias",
+      "categoryTitle": "Categorias e etiquetas",
+      "function": "Excluir",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/categorias/delete_category"
+    },
+    {
+      "name": "delete_category_group",
+      "description": "Remover agrupador; suas categorias e transações são preservadas e ficam sem grupo.",
+      "category": "categorias",
+      "categoryTitle": "Categorias e etiquetas",
+      "function": "Excluir",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/categorias/delete_category_group"
+    },
+    {
+      "name": "delete_goal",
+      "description": "Excluir meta e contribuições locais; preservar transações.",
+      "category": "metas",
+      "categoryTitle": "Metas e contribuições",
+      "function": "Excluir",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/metas/delete_goal"
+    },
+    {
+      "name": "delete_manual_account",
+      "description": "Excluir conta manual vazia; recusa referências financeiras ativas.",
+      "category": "contas",
+      "categoryTitle": "Contas e organização",
+      "function": "Excluir",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/contas/delete_manual_account"
+    },
+    {
+      "name": "delete_manual_investment",
+      "description": "Excluir investimento manual e remover vínculo de metas.",
+      "category": "investimentos",
+      "categoryTitle": "Investimentos",
+      "function": "Excluir",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/investimentos/delete_manual_investment"
+    },
+    {
+      "name": "delete_manual_loan",
+      "description": "Excluir dívida manual sem parcelas pendentes vinculadas.",
+      "category": "dividas",
+      "categoryTitle": "Dívidas e conciliação",
+      "function": "Excluir",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/dividas/delete_manual_loan"
+    },
+    {
+      "name": "delete_rule",
+      "description": "Excluir regra sem reverter classificações já aplicadas.",
+      "category": "regras",
+      "categoryTitle": "Regras de classificação",
+      "function": "Excluir",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/regras/delete_rule"
+    },
+    {
+      "name": "delete_space",
+      "description": "Excluir um espaço vazio; preserva o grupo pessoal e impede referências órfãs.",
+      "category": "contas",
+      "categoryTitle": "Contas e organização",
+      "function": "Excluir",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/contas/delete_space"
+    },
+    {
+      "name": "delete_tag",
+      "description": "Excluir tag e suas associações.",
+      "category": "categorias",
+      "categoryTitle": "Categorias e etiquetas",
+      "function": "Excluir",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/categorias/delete_tag"
+    },
+    {
+      "name": "delete_transaction",
+      "description": "Excluir apresentação local preservando origem; confirmação e repetição idempotente.",
+      "category": "transacoes",
+      "categoryTitle": "Transações e compras",
+      "function": "Excluir",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/transacoes/delete_transaction"
+    },
+    {
+      "name": "delete_transactions_by_period",
+      "description": "Excluir apresentação local preservando origem; confirmação e repetição idempotente.",
+      "category": "transacoes",
+      "categoryTitle": "Transações e compras",
+      "function": "Excluir",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/transacoes/delete_transactions_by_period"
+    },
+    {
+      "name": "edit_transaction",
+      "description": "Editar projeção local sem sobrescrever registro bancário.",
+      "category": "transacoes",
+      "categoryTitle": "Transações e compras",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/transacoes/edit_transaction"
+    },
+    {
+      "name": "edit_transactions_by_period",
+      "description": "Editar seleção integral do período; recusa seleções acima de 500.",
+      "category": "transacoes",
+      "categoryTitle": "Transações e compras",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/transacoes/edit_transactions_by_period"
+    },
+    {
+      "name": "generate_chart",
+      "description": "Séries exatas por moeda, com nomes e apresentação monetária. Use includeSvg=false para compor sua própria visualização; SVG estático é opcional.",
+      "category": "analises",
+      "categoryTitle": "Análises e assinaturas",
+      "function": "Analisar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/analises/generate_chart"
+    },
+    {
+      "name": "get_accounts",
+      "description": "Contas e saldos com referência temporal; inclui contas manuais e preferências locais.",
+      "category": "contas",
+      "categoryTitle": "Contas e organização",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/contas/get_accounts"
+    },
+    {
+      "name": "get_bills",
+      "description": "Faturas importadas, pagamentos bancários e marcação manual separada.",
+      "category": "cartoes",
+      "categoryTitle": "Cartões, faturas e parcelas",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/cartoes/get_bills"
+    },
+    {
+      "name": "get_budget",
+      "description": "Orçamento configurado e consumo do ciclo vigente por moeda e categoria; informa valores sem classificação.",
+      "category": "orcamento",
+      "categoryTitle": "Orçamento e projeções",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/orcamento/get_budget"
+    },
+    {
+      "name": "get_card_commitments",
+      "description": "Compromissos observados de contas CREDIT: gastos efetivos POSTED, pendentes e futuras importadas separados; parcelas por mês, categorias e limites explícitos. Créditos classificados como despesa reduzem o gasto. Não prevê parcelas ausentes, não soma pagamento de fatura e não confunde ocupação observada com limite bancário.",
+      "category": "cartoes",
+      "categoryTitle": "Cartões, faturas e parcelas",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/cartoes/get_card_commitments"
+    },
+    {
+      "name": "get_cards",
+      "description": "Cartões principais e adicionais identificados na origem; ids estáveis e suporte a include_hidden.",
+      "category": "cartoes",
+      "categoryTitle": "Cartões, faturas e parcelas",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/cartoes/get_cards"
+    },
+    {
+      "name": "get_categories",
+      "description": "Listar registros locais e importados, incluindo ocultos quando solicitado.",
+      "category": "categorias",
+      "categoryTitle": "Categorias e etiquetas",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/categorias/get_categories"
+    },
+    {
+      "name": "get_category_groups",
+      "description": "Listar agrupadores de categorias de um espaço; não são espaços financeiros.",
+      "category": "categorias",
+      "categoryTitle": "Categorias e etiquetas",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/categorias/get_category_groups"
+    },
+    {
+      "name": "get_goal_plan",
+      "description": "Quanto guardar por mês, arredondado para cima em unidades mínimas; sem presumir rendimento.",
+      "category": "metas",
+      "categoryTitle": "Metas e contribuições",
+      "function": "Analisar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/metas/get_goal_plan"
+    },
+    {
+      "name": "get_goals",
+      "description": "Metas locais com valor, prazo e vínculo patrimonial; use get_goal_plan para calcular aportes.",
+      "category": "metas",
+      "categoryTitle": "Metas e contribuições",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/metas/get_goals"
+    },
+    {
+      "name": "get_installments",
+      "description": "Planos manuais e candidatos derivados de metadados; agrupamento da origem é estimativa, não prova de pagamento.",
+      "category": "cartoes",
+      "categoryTitle": "Cartões, faturas e parcelas",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/cartoes/get_installments"
+    },
+    {
+      "name": "get_investments",
+      "description": "Carteira do investidor: posições brutas/líquidas, resultado informado, resgate e alocação por classe/instituição, por moeda. Excluídos e resgatados não compõem totais; campos ausentes são desconhecidos. Não infere rentabilidade nem histórico.",
+      "category": "investimentos",
+      "categoryTitle": "Investimentos",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/investimentos/get_investments"
+    },
+    {
+      "name": "get_loan_schedule",
+      "description": "Cronograma SAC local e estado de conciliação de cada parcela.",
+      "category": "dividas",
+      "categoryTitle": "Dívidas e conciliação",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/dividas/get_loan_schedule"
+    },
+    {
+      "name": "get_loans",
+      "description": "Listar registros locais e importados, incluindo ocultos quando solicitado.",
+      "category": "dividas",
+      "categoryTitle": "Dívidas e conciliação",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/dividas/get_loans"
+    },
+    {
+      "name": "get_notification_preferences",
+      "description": "Preferências locais de avisos. deliveryConfigured=false informa que o envio não está configurado.",
+      "category": "avisos",
+      "categoryTitle": "Preferências de avisos",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/avisos/get_notification_preferences"
+    },
+    {
+      "name": "get_overview",
+      "description": "Saldos, entradas e saídas por moeda, sem tratar transferências e pagamentos de cartão como consumo.",
+      "category": "analises",
+      "categoryTitle": "Análises e assinaturas",
+      "function": "Analisar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/analises/get_overview"
+    },
+    {
+      "name": "get_projection",
+      "description": "Projeção de saldo BANK com recorrências e vencimentos; informa premissas e desconhecidos.",
+      "category": "orcamento",
+      "categoryTitle": "Orçamento e projeções",
+      "function": "Analisar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/orcamento/get_projection"
+    },
+    {
+      "name": "get_recurrences",
+      "description": "Compromissos recorrentes cadastrados. Não detecta automaticamente assinaturas no histórico.",
+      "category": "recorrencias",
+      "categoryTitle": "Recorrências cadastradas",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/recorrencias/get_recurrences"
+    },
+    {
+      "name": "get_rules",
+      "description": "Regras locais ordenadas por prioridade. Salvar não reaplica o histórico; use preview_rule antes de aplicar.",
+      "category": "regras",
+      "categoryTitle": "Regras de classificação",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/regras/get_rules"
+    },
+    {
+      "name": "get_spaces",
+      "description": "Espaços locais e suas configurações de moeda, ciclo e orçamento.",
+      "category": "contas",
+      "categoryTitle": "Contas e organização",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/contas/get_spaces"
+    },
+    {
+      "name": "get_spending_by_category",
+      "description": "Despesas classificadas por categoria; exclui transferências e itens ignorados.",
+      "category": "analises",
+      "categoryTitle": "Análises e assinaturas",
+      "function": "Analisar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/analises/get_spending_by_category"
+    },
+    {
+      "name": "get_spending_comparison",
+      "description": "Comparar gastos com período anterior de igual duração, mesmos dias do mês anterior ou intervalo explícito. Já inclui grupos e totais dos dois períodos.",
+      "category": "analises",
+      "categoryTitle": "Análises e assinaturas",
+      "function": "Analisar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/analises/get_spending_comparison"
+    },
+    {
+      "name": "get_spending_pace",
+      "description": "Ritmo observado de despesas e projeção linear explicitamente estimada.",
+      "category": "analises",
+      "categoryTitle": "Análises e assinaturas",
+      "function": "Analisar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/analises/get_spending_pace"
+    },
+    {
+      "name": "get_subscriptions",
+      "description": "Identificar candidatos a assinaturas e cobranças recorrentes no histórico efetivo, com frequência, valores exatos e evidências. Exclui pendentes, futuros, transferências classificadas e parcelas identificadas. Padrão: últimos 12 meses e 3 ocorrências. Não confirma contratos nem cria recorrências; partial/truncated indicam análise incompleta.",
+      "category": "analises",
+      "categoryTitle": "Análises e assinaturas",
+      "function": "Analisar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/analises/get_subscriptions"
+    },
+    {
+      "name": "get_tags",
+      "description": "Etiquetas locais do espaço, com IDs e nomes para filtrar e organizar transações.",
+      "category": "categorias",
+      "categoryTitle": "Categorias e etiquetas",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/categorias/get_tags"
+    },
+    {
+      "name": "get_transaction_purchases",
+      "description": "Compras e transações com parcelas de cartão agrupadas antes da paginação, como na lista do painel. Mantém valores de cada parcela, moeda, pendência, datas e identificação. Datas filtram a compra ou primeira parcela conhecida; nunca some a página para calcular totais.",
+      "category": "transacoes",
+      "categoryTitle": "Transações e compras",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/transacoes/get_transaction_purchases"
+    },
+    {
+      "name": "get_transactions",
+      "description": "Histórico efetivo com edições locais e paginação consistente. Para últimas compras envie order=date_desc e limit=5; não some páginas para calcular totais.",
+      "category": "transacoes",
+      "categoryTitle": "Transações e compras",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/transacoes/get_transactions"
+    },
+    {
+      "name": "get_upcoming_payments",
+      "description": "Vencimentos de faturas, recorrências e parcelas de empréstimos sem executar pagamentos.",
+      "category": "orcamento",
+      "categoryTitle": "Orçamento e projeções",
+      "function": "Consultar",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/orcamento/get_upcoming_payments"
+    },
+    {
+      "name": "import_rules",
+      "description": "Importar JSON de regras compostas atomicamente no espaço confirmado. Preserva regras pessoais e duplicatas; exige a revisão da prévia. Não reaplica histórico.",
+      "category": "regras",
+      "categoryTitle": "Regras de classificação",
+      "function": "Importar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/regras/import_rules"
+    },
+    {
+      "name": "link_goal_asset",
+      "description": "Vincular exatamente uma conta ou investimento da mesma moeda à meta.",
+      "category": "metas",
+      "categoryTitle": "Metas e contribuições",
+      "function": "Vincular ou registrar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/metas/link_goal_asset"
+    },
+    {
+      "name": "mark_bill_paid",
+      "description": "Alterar apenas confirmação manual da fatura; nunca enviar pagamento ao banco.",
+      "category": "cartoes",
+      "categoryTitle": "Cartões, faturas e parcelas",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/cartoes/mark_bill_paid"
+    },
+    {
+      "name": "move_account",
+      "description": "Mover conta ou todas as contas da conexão entre espaços pessoais.",
+      "category": "contas",
+      "categoryTitle": "Contas e organização",
+      "function": "Mover",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/contas/move_account"
+    },
+    {
+      "name": "move_connection",
+      "description": "Mover conta ou todas as contas da conexão entre espaços pessoais.",
+      "category": "contas",
+      "categoryTitle": "Contas e organização",
+      "function": "Mover",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/contas/move_connection"
+    },
+    {
+      "name": "move_transactions",
+      "description": "Mover projeções de transações para outro espaço da mesma instalação.",
+      "category": "transacoes",
+      "categoryTitle": "Transações e compras",
+      "function": "Mover",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/transacoes/move_transactions"
+    },
+    {
+      "name": "preview_rule",
+      "description": "Simular uma regra sem salvar nem reclassificar. Usa o mesmo escopo obrigatório, alternativas OU, condições E e dinheiro exato do painel. Informa contagem, amostras e limites de cobertura; truncated ou partial impedem tratar a contagem como definitiva.",
+      "category": "regras",
+      "categoryTitle": "Regras de classificação",
+      "function": "Simular",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/regras/preview_rule"
+    },
+    {
+      "name": "preview_rule_import",
+      "description": "Conferir importação de JSON de regras compostas, categorias e duplicatas, sem gravar. Retorna revisão para confirmação.",
+      "category": "regras",
+      "categoryTitle": "Regras de classificação",
+      "function": "Simular",
+      "operation": "read",
+      "url": "/docs/assistentes/ferramentas/regras/preview_rule_import"
+    },
+    {
+      "name": "reconcile_scheduled_payment",
+      "description": "Conciliar próxima parcela com transação compatível ou criar lançamento manual; nunca inicia pagamento bancário.",
+      "category": "dividas",
+      "categoryTitle": "Dívidas e conciliação",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/dividas/reconcile_scheduled_payment"
+    },
+    {
+      "name": "remove_category_limit",
+      "description": "Remover limite com orçamento ativado.",
+      "category": "orcamento",
+      "categoryTitle": "Orçamento e projeções",
+      "function": "Remover ou desfazer",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/orcamento/remove_category_limit"
+    },
+    {
+      "name": "remove_goal_contribution",
+      "description": "Remover contribuição preservando transação.",
+      "category": "metas",
+      "categoryTitle": "Metas e contribuições",
+      "function": "Remover ou desfazer",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/metas/remove_goal_contribution"
+    },
+    {
+      "name": "remove_transaction_tags",
+      "description": "Alterar tags das transações selecionadas.",
+      "category": "categorias",
+      "categoryTitle": "Categorias e etiquetas",
+      "function": "Remover ou desfazer",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/categorias/remove_transaction_tags"
+    },
+    {
+      "name": "reopen_installment",
+      "description": "Alterar conclusão manual sem inventar pagamentos.",
+      "category": "cartoes",
+      "categoryTitle": "Cartões, faturas e parcelas",
+      "function": "Remover ou desfazer",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/cartoes/reopen_installment"
+    },
+    {
+      "name": "replace_manual_loan_schedule",
+      "description": "Criar cronograma SAC exato; juros mensais em pontos-base e arredondamento half-up.",
+      "category": "dividas",
+      "categoryTitle": "Dívidas e conciliação",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/dividas/replace_manual_loan_schedule"
+    },
+    {
+      "name": "set_budget",
+      "description": "Ativar orçamento e definir total mensal por espaço.",
+      "category": "orcamento",
+      "categoryTitle": "Orçamento e projeções",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/orcamento/set_budget"
+    },
+    {
+      "name": "set_category_limit",
+      "description": "Definir limite com orçamento ativado.",
+      "category": "orcamento",
+      "categoryTitle": "Orçamento e projeções",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/orcamento/set_category_limit"
+    },
+    {
+      "name": "set_investment_inclusion",
+      "description": "Definir participação no patrimônio.",
+      "category": "investimentos",
+      "categoryTitle": "Investimentos",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/investimentos/set_investment_inclusion"
+    },
+    {
+      "name": "set_loan_visibility",
+      "description": "Ocultar ou restaurar empréstimo.",
+      "category": "dividas",
+      "categoryTitle": "Dívidas e conciliação",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/dividas/set_loan_visibility"
+    },
+    {
+      "name": "set_notification_preference",
+      "description": "Guardar preferência de canal; não configura nem comprova entrega de notificações.",
+      "category": "avisos",
+      "categoryTitle": "Preferências de avisos",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/avisos/set_notification_preference"
+    },
+    {
+      "name": "set_primary_card",
+      "description": "Definir cartão principal.",
+      "category": "cartoes",
+      "categoryTitle": "Cartões, faturas e parcelas",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/cartoes/set_primary_card"
+    },
+    {
+      "name": "undo_scheduled_payment",
+      "description": "Desfazer última conciliação mantendo transação e histórico.",
+      "category": "dividas",
+      "categoryTitle": "Dívidas e conciliação",
+      "function": "Remover ou desfazer",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/dividas/undo_scheduled_payment"
+    },
+    {
+      "name": "unlink_goal_asset",
+      "description": "Remover vínculo de patrimônio.",
+      "category": "metas",
+      "categoryTitle": "Metas e contribuições",
+      "function": "Remover ou desfazer",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/metas/unlink_goal_asset"
+    },
+    {
+      "name": "unlink_goal_transaction",
+      "description": "Desvincular transação e contribuição associada sem excluir histórico.",
+      "category": "metas",
+      "categoryTitle": "Metas e contribuições",
+      "function": "Remover ou desfazer",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/metas/unlink_goal_transaction"
+    },
+    {
+      "name": "unmark_bill_paid",
+      "description": "Alterar apenas confirmação manual da fatura; nunca enviar pagamento ao banco.",
+      "category": "cartoes",
+      "categoryTitle": "Cartões, faturas e parcelas",
+      "function": "Remover ou desfazer",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/cartoes/unmark_bill_paid"
+    },
+    {
+      "name": "update_account_settings",
+      "description": "Editar apresentação e definir limite local de cartão; null restaura o limite importado. Não altera o banco. Ciclo somente para cartões manuais.",
+      "category": "contas",
+      "categoryTitle": "Contas e organização",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/contas/update_account_settings"
+    },
+    {
+      "name": "update_card",
+      "description": "Renomear ou ocultar cartão adicional.",
+      "category": "cartoes",
+      "categoryTitle": "Cartões, faturas e parcelas",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/cartoes/update_card"
+    },
+    {
+      "name": "update_category",
+      "description": "Configurar ícone, cor e grupo de qualquer categoria. Nomes de categorias fixas são protegidos.",
+      "category": "categorias",
+      "categoryTitle": "Categorias e etiquetas",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/categorias/update_category"
+    },
+    {
+      "name": "update_category_group",
+      "description": "Editar nome, ícone ou cor de um agrupador de categorias.",
+      "category": "categorias",
+      "categoryTitle": "Categorias e etiquetas",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/categorias/update_category_group"
+    },
+    {
+      "name": "update_goal",
+      "description": "Atualizar meta financeira.",
+      "category": "metas",
+      "categoryTitle": "Metas e contribuições",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/metas/update_goal"
+    },
+    {
+      "name": "update_installment",
+      "description": "Renomear plano e parcelas vinculadas ou alterar categoria.",
+      "category": "cartoes",
+      "categoryTitle": "Cartões, faturas e parcelas",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/cartoes/update_installment"
+    },
+    {
+      "name": "update_manual_investment",
+      "description": "Editar investimento manual.",
+      "category": "investimentos",
+      "categoryTitle": "Investimentos",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/investimentos/update_manual_investment"
+    },
+    {
+      "name": "update_manual_loan",
+      "description": "Atualizar dívida manual sem alterar parcelas conciliadas.",
+      "category": "dividas",
+      "categoryTitle": "Dívidas e conciliação",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/dividas/update_manual_loan"
+    },
+    {
+      "name": "update_recurrence",
+      "description": "Substituir configuração da recorrência, inclusive data final.",
+      "category": "recorrencias",
+      "categoryTitle": "Recorrências cadastradas",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/recorrencias/update_recurrence"
+    },
+    {
+      "name": "update_rule",
+      "description": "Atualizar regra pessoal; pessoais precedem pacotes, depois menor prioridade vence.",
+      "category": "regras",
+      "categoryTitle": "Regras de classificação",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/regras/update_rule"
+    },
+    {
+      "name": "update_space",
+      "description": "Editar espaço e início do ciclo financeiro.",
+      "category": "contas",
+      "categoryTitle": "Contas e organização",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/contas/update_space"
+    },
+    {
+      "name": "update_tag",
+      "description": "Editar tag.",
+      "category": "categorias",
+      "categoryTitle": "Categorias e etiquetas",
+      "function": "Editar ou configurar",
+      "operation": "write",
+      "url": "/docs/assistentes/ferramentas/categorias/update_tag"
+    }
+  ]
+}

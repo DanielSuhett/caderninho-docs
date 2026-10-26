@@ -1,0 +1,25 @@
+{
+  "title": "Referência do projeto",
+  "defaultOpen": false,
+  "pages": [
+    "index",
+    "adr-modular-monolith",
+    "card-commitments",
+    "cards",
+    "categories",
+    "design-system",
+    "frontend-workspace",
+    "household",
+    "investments",
+    "mcp-audit",
+    "mcp-finance",
+    "mcp-tools",
+    "observability",
+    "onboarding",
+    "rule-packs",
+    "seo",
+    "usage",
+    "projeto",
+    "contribuir"
+  ]
+}

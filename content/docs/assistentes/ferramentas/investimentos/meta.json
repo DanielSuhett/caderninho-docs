@@ -1,0 +1,12 @@
+{
+  "title": "Investimentos",
+  "defaultOpen": false,
+  "pages": [
+    "index",
+    "create_manual_investment",
+    "delete_manual_investment",
+    "get_investments",
+    "set_investment_inclusion",
+    "update_manual_investment"
+  ]
+}

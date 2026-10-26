@@ -1,0 +1,20 @@
+{
+  "title": "Cartões, faturas e parcelas",
+  "defaultOpen": false,
+  "pages": [
+    "index",
+    "complete_installment",
+    "create_manual_installment",
+    "delete_card",
+    "get_bills",
+    "get_card_commitments",
+    "get_cards",
+    "get_installments",
+    "mark_bill_paid",
+    "reopen_installment",
+    "set_primary_card",
+    "unmark_bill_paid",
+    "update_card",
+    "update_installment"
+  ]
+}

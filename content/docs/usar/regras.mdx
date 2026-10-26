@@ -1,0 +1,42 @@
+---
+title: Criar e revisar regras
+description: Automatize a classificação com condições explícitas, prévia e reaplicação controlada.
+---
+
+Se você costuma corrigir as mesmas compras, crie uma regra para classificá-las nas próximas importações. Abra Regras ou escolha Criar regra no detalhe de uma transação. Comece por uma descrição específica que você reconhece no histórico.
+
+## Criar a primeira regra
+
+1. Dê um nome que explique o que a regra classifica.
+2. Escolha categoria e condições, conferindo conta, moeda e titular quando aplicável.
+3. Revise a prévia e as amostras de correspondência.
+4. Confira prioridade e estado antes de salvar.
+5. Para alterar o passado, faça uma reaplicação explícita depois de revisar o período.
+
+## Combinar condições
+
+Dentro de uma alternativa, todas as condições precisam corresponder ao movimento, formando uma combinação `E`. Entre alternativas, basta uma delas corresponder, formando uma combinação `OU`. Você pode definir até quatro alternativas com até oito condições cada.
+
+Por exemplo, uma alternativa pode exigir que a descrição contenha “MERCADO”, a moeda seja BRL e o movimento seja um débito. As três condições precisam ocorrer juntas. Acrescente condições quando a mesma palavra aparecer em compras de naturezas diferentes.
+
+O motor ignora diferenças entre A–Z e a–z. Acentos continuam literais. Um padrão precisa refletir o descritor recebido do seu banco.
+
+## Prioridade
+
+Regras pessoais vêm antes das regras de pacotes. Dentro de cada grupo, a menor prioridade numérica vem primeiro; o ID desempata. A primeira correspondência vence no motor local.
+
+Por padrão, a reaplicação preserva uma categoria que você já corrigiu manualmente. Ao editar uma regra importada de um pacote, ela passa a ser tratada como uma regra pessoal.
+
+## O que a prévia comprova
+
+A prévia mostra correspondências e amostras dentro da cobertura informada. Uma correspondência não garante que a categoria mudará, porque prioridade e classificações existentes também importam.
+
+Se a prévia informar cobertura parcial ou um limite de resultados, a contagem não representa todo o histórico. Revise os filtros antes de confirmar uma alteração ampla.
+
+## Reaplicar ao histórico
+
+Salvar afeta próximas importações. Para o histórico, confirme uma seleção ou período e use a ação de reaplicação. O contrato limita uma escrita atômica a 500 registros; seleções maiores são recusadas.
+
+Pausar ou excluir uma regra não desfaz categorias já aplicadas. Para uma correção, revise os movimentos afetados.
+
+[Importar pacotes](/docs/usar/pacotes) · [Ferramentas de regras](/docs/assistentes/ferramentas/regras)
