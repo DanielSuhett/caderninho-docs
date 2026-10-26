@@ -72,8 +72,13 @@ deploy, sem identificadores da conta. Ao atualizar imagens, confira o roteiro,
 os rótulos e os créditos; o check também procura imagens locais ausentes e
 texto alternativo faltante.
 
-## Publicação futura
+## Publicação
 
-Após a aprovação local, a saída `out` pode ir para um projeto próprio de hosting
-estático. O deploy deve manter busca estática, rotas HTML e os arquivos Markdown,
-sem bindings financeiros. A publicação do domínio é uma etapa separada.
+O site está público em <https://docs.usecaderninho.com> pelo Cloudflare Pages,
+no projeto `caderninho-docs`. O projeto acompanha o repositório
+`DanielSuhett/caderninho-docs`, branch `main`, e publica automaticamente a cada
+push nessa branch.
+
+A configuração de build é `npm run build`, com saída em `out`. O export é
+estático: não usa bindings financeiros nem secrets do produto. As rotas HTML,
+a busca e os arquivos Markdown são publicados junto com o site.
